@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulación de Inversión</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Caso de Estudio 2: Decisiones sobre Inversiones</h2>
+
+  <p>Una empresa desea entrar en un nuevo negocio cuya inversión inicial requerida y los ingresos netos anuales después de impuestos están distribuidos como sigue:</p>
+  <ul>
+    <li>Inversión inicial N(media=100000, desviación estándar=5000)</li>
+    <li>Flujo neto del periodo t N(media=30000, desviación estándar=3000)</li>
+  </ul>
+  <p>Si la administración ha establecido que un proyecto de inversión será emprendido si Prob{TIR > TREMA} ≥ 0,90, y la TREMA es de 30%, ¿debería la empresa X aceptar este nuevo proyecto de inversión? Asuma un horizonte de planificación de 5 años y un valor de rescate al término de este tiempo de cero.</p>
+
+  <label for="numEscenarios">Número de Escenarios:</label>
+  <input type="number" id="numEscenarios" value="15">
+
+  <button onclick="realizarSimulacion()">Realizar Simulación</button>
+
+  <p id="mensajeResultado"></p>
+
+  <table id="tablaResultados">
+    <tr>
+      <th>Escenario</th>
+      <th>Inversión Inicial</th>
+      <th>Flujo de Caja Neto Año 1</th>
+      <th>Flujo de Caja Neto Año 2</th>
+      <th>Flujo de Caja Neto Año 3</th>
+      <th>Flujo de Caja Neto Año 4</th>
+      <th>Flujo de Caja Neto Año 5</th>
+      <th>TIR</th>
+      <th>TREMA</th>
+      <th>Conclusión</th>
+    </tr>
+  </table>
+
+  <script>
+    function realizarSimulacion() {
+      const numEscenarios = document.getElementById('numEscenarios').value;
+
+      // Limpiar la tabla antes de la nueva simulación
+      document.getElementById('tablaResultados').innerHTML = `
+        <tr>
+          <th>Escenario</th>
+          <th>Inversión Inicial</th>
+          <th>Flujo de Caja Neto Año 1</th>
+          <th>Flujo de Caja Neto Año 2</th>
+          <th>Flujo de Caja Neto Año 3</th>
+          <th>Flujo de Caja Neto Año 4</th>
+          <th>Flujo de Caja Neto Año 5</th>
+          <th>TIR</th>
+          <th>TREMA</th>
+          <th>Conclusión</th>
+        </tr>
+      `;
+
+      // Función para generar números aleatorios con distribución normal
+      function generarNumeroAleatorio(media, desviacion) {
+        return media + desviacion * Math.random();
+      }
+
+      // Función para calcular la TIR
+      function calcularTIR(flujos) {
+        // Aquí puedes implementar la lógica para calcular la TIR, por ejemplo, usando bibliotecas de JavaScript.
+        // En este ejemplo, simplemente se devuelve un número aleatorio.
+        return generarNumeroAleatorio(10, 5);
+      }
+
+      // Parámetros de la simulación
+      const TREMA = 0.30; // Tasa de rendimiento mínima aceptable
+     // let aceptados = 0;
+     // let rechazados = 0;
+
+      // Realizar la simulación
+      for (let i = 1; i <= numEscenarios; i++) {
+        const inversionInicial = -1 * generarNumeroAleatorio(100000, 5000);
+        const flujoAnio1 = generarNumeroAleatorio(30000, 3000);
+        const flujoAnio2 = generarNumeroAleatorio(30000, 3000);
+        const flujoAnio3 = generarNumeroAleatorio(30000, 3000);
+        const flujoAnio4 = generarNumeroAleatorio(30000, 3000);
+        const flujoAnio5 = generarNumeroAleatorio(30000, 3000);
+
+        // Puedes calcular la TIR aquí usando los flujos generados
+        const flujosCaja = [flujoAnio1, flujoAnio2, flujoAnio3, flujoAnio4, flujoAnio5];
+        const TIR = calcularTIR(flujosCaja);
+
+        // Determina la conclusión según la condición dada
+        const conclusion = TIR > TREMA ? 'Aceptar' : 'Rechazar';
+
+        // Actualiza el conteo de aceptados y rechazados
+        //if (conclusion == 'Aceptar') {
+       //   aceptados++;
+       // } else {
+       //   rechazados++;
+       // }
+
+        // Agrega una fila a la tabla con los resultados
+        document.getElementById('tablaResultados').innerHTML += `
+          <tr>
+            <td>${i}</td>
+            <td>${inversionInicial.toFixed(2)}</td>
+            <td>${flujoAnio1.toFixed(2)}</td>
+            <td>${flujoAnio2.toFixed(2)}</td>
+            <td>${flujoAnio3.toFixed(2)}</td>
+            <td>${flujoAnio4.toFixed(2)}</td>
+            <td>${flujoAnio5.toFixed(2)}</td>
+            <td>${TIR.toFixed(2)}</td>
+            <td>${TREMA.toFixed(2)}</td>
+            <td>${conclusion}</td>
+          </tr>
+        `;
+      }
+
+      // Muestra el mensaje de resultados
+      document.getElementById('mensajeResultado').innerHTML = `
+        Resultados: Aceptados: ${aceptados}, Rechazados: ${rechazados}
+      `;
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
