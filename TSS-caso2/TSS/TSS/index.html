@@ -1,53 +1,43 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8"> 
-    <title>page2</title>
-
-    <script>
-      function irAPagina1() {
-        window.location.href = "pagina web, index.html";
-      }
-    </script>
-
-  </head>
-  <body>
-
-    <h1>Página 2</h1>
-  <button onclick="irAPagina1()">Ir a página 1</button>
-
-    <p>Una empresa desea entrar en un nuevo negocio cuya inversión inicial requerida y los
-        ingresos netos anuales después de impuestos están distribuidos como sigue:</p>
-      <p> Inversión inicial, N(μ = 100.000, σ = 5.000)</p>
-      <p>Flujo neto del periodo t N(μ =30.000, σ = 3.000)</p>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Pagina web basica</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Evita barras de desplazamiento */
+        }
         
-    <p>Si la administración ha establecido que un proyecto de inversión será emprendido si
-        Prob{TIR > TREMA} ≥ 0,90, y la TREMA es de 30%, ¿debería la empresa X aceptar este nuevo
-        proyecto de inversión? Asuma un horizonte de planeación de 5 años y un valor de rescate
-        al término de este tiempo de cero.</p>
-    
-        <form>
-          Inversion Inicial: <input type = "number" name = "Media" />
-                             <input type = "number" name = "Desviacion Estandar" />
+        /* Estilos para la imagen */
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ajusta la imagen manteniendo su relación de aspecto y cubriendo completamente el contenedor */
+        }
+    </style>
+</head>
+<body>
+    <div class="head">
+        <div class="logo">  
+            <a href="#">Logo</a>   
+        </div>
+        <nav class="navbar">
+            <li><a href="comp_inicio/AcercaDeNosotros.html">Acerca de Nosotros</a></li>
+            <li><a href="comp_inicio/politicaDePrivacidad.html">Politica de Privacidad</a></li>
+            <li><a href="comp_inicio/Ayuda.html">Centro de Ayuda</a></li>
+            <li><a href="inversionCaso2.html">Inversion Caso 2</a></li>
 
-          Flujo neto del periodo t: <input type = "number" name = "Media" />
-                                    <input type = "number" name = "Desviacion Estandar" />
-        </form>
-    
+        </nav>
+    </div>
 
-    <table> 
-        <tr> <td>ESCENARIO</td> <td>INVERSION INICIAL</td> <td>FLUJO DE CAJA NETO DEL AÑO 1</td> <td>FLUJO DE CAAJA NETO DEL AÑO 2</td> <td>FLUJO DE CAJA NETO DEL AÑO 3</td> <td>FLUJO DE CAJA NETO DEL AÑO 4</td> <td>FLUJO DE CAJA NETO DEL AÑO 5</td> <td>TIR</td> <td>TREMA</td></tr> 
-        <tr> <td>1</td> <td>-109353,8928</td> <td>30294,30065</td> <td>30702,25359</td> <td>29768,51958</td> <td>27619,8895</td> <td>31033,71723</td> <td>11%</td> <td>28%</td></tr> 
-        <tr> <td>2</td> <td>-94894,31972</td> <td>30809,9289</td> <td>29024,10592</td> <td>26899,76058</td> <td>32551,87766</td> <td>28667,4129</td> <td>17%</td> <td>30%</td></tr>
-        <tr> <td>3</td> <td>-95079,69141</td> <td>27641,2718</td> <td>26336,93586</td> <td>29252,15814</td> <td>31319,07569</td> <td>29457,40743</td> <td>15%</td> <td>31%</td></tr>
-        <tr> <td>4</td> <td>104357,7216</td> <td>30844,53081</td> <td>33065,96151</td> <td>29067,19457</td> <td>28368,48527</td> <td>25344,41301</td> <td>13%</td> <td>24%</td></tr>
-        <tr> <td>5</td> <td>-97539,73214</td> <td>36581,13196</td> <td>27828,7843</td> <td>28072,08404</td> <td>29441,39592</td> <td>29277,34362</td> <td>17%</td> <td>30%</td></tr>
-        <tr> <td>6</td> <td>-101067,4294</td> <td>29555,62414</td> <td>38332,95109</td> <td>30065,71582</td> <td>25018,40024</td> <td>29033,63881</td> <td>16%</td> <td>29%</td></tr>
-        <tr> <td>7</td> <td>-105147,2878</td> <td>31296,9386</td> <td>32341,93654</td> <td>28118,34352</td> <td>28339,48944</td> <td>27725,60907</td> <td>13%</td> <td>26%</td></tr>
-        <tr> <td>8</td> <td>-99162,75727</td> <td>23329,54251</td> <td>28116,58243</td> <td>29714,81751</td> <td>29131,61517</td> <td>30166,92898</td> <td>12%</td> <td>30%</td></tr>
-        <tr> <td>9</td> <td>-93634,11699</td> <td>30301,8607</td> <td>30344,17917</td> <td>31301,08032</td> <td>29825,90077</td> <td>29305,32239</td> <td>19%</td> <td>31%</td></tr>
-        <tr> <td>10</td> <td>-104325,6602</td> <td>23952,92572</td> <td>31674,61778</td> <td>29277,13065</td> <td>29157,29456</td> <td>25749,64954</td> <td>11%</td> <td>25%</td></tr>
-     </table>
-      
-  </body>
+
+    <!-- Agregar una imagen -->
+    <img src="imagenes/inversiones.jpg" alt="Descripción de la imagen">
+</body>
+
 </html>
