@@ -54,7 +54,7 @@
             <li><a href="comp_inicio/AcercaDeNosotros.html">Acerca de Nosotros</a></li>
             <li><a href="comp_inicio/politicaDePrivacidad.html">Politica de Privacidad</a></li>
             <li><a href="comp_inicio/Ayuda.html">Centro de Ayuda</a></li>
-            <li><a href="inversionCaso2.html">Inversion Caso 2</a></li>
+            <li><a href="acciones.php">Acciones</a></li>
         </nav>
     </div>
 
