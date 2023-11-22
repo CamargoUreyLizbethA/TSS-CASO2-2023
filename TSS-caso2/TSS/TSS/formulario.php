@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,20 +8,20 @@
 <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #e6ebe0;
             margin: 0;
             padding: 0;
         }
 
         h1 {
             text-align: center;
-            color: #333;
+            color: #28324b;
         }
 
         form {
             max-width: 600px;
             margin: 20px auto;
-            background-color: #fff;
+            background-color: #9bc1bc;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -134,6 +133,8 @@
     
     
     <input type="submit" value="Enviar">
+    <a class="header-btn" href="listaformulario.php">Cancelar</a>
+
 </form>
 
 </body>

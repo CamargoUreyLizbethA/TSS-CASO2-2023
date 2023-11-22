@@ -149,15 +149,15 @@
         </div>
         <!-- Tarjeta "Simular" -->
         <div class="card">
-            <a href="formulario.php">
-                <h2>Formulario</h2>
+            <a href="listaformulario.php">
+                <h2>Formulario Para Simular</h2>
                 <img src="imagenes/simulacion.jpg" alt="Imagen Simular">
             </a>
         </div>
         <!-- Tarjeta "Aprender" -->
         <div class="card">
             <a href="aprender.php">
-                <h2>Aprender</h2>
+                <h2>Aprender Sobre La Aplicacion</h2>
                 <img src="imagenes/aprenderS.jpg" alt="Imagen Aprender">
             </a>
         </div>
