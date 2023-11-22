@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #28324b;
+            background-color: #e6ebe0;
         }
 
         .header {
@@ -22,7 +22,7 @@
 
         .container {
             max-width: 800px;
-            margin: 10px auto; /* Ajustado para compensar la altura del encabezado */
+            margin: -9px auto; /* Ajustado para compensar la altura del encabezado */
             text-align: center;
             display: flex;
             flex-direction: column; /* Cambiado de 'row' a 'column' */
@@ -41,7 +41,7 @@
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #9bc1bc;
         }
     </style>
 </head>
@@ -93,8 +93,7 @@
         <script>
             function realizarSimulacion() {
                 const numEscenarios = document.getElementById('numEscenarios').value;
-
-                // Limpiar la tabla antes de la nueva simulación
+    
                 document.getElementById('tablaResultados').innerHTML = `
                 <tr>
                     <th>Escenario</th>
@@ -109,48 +108,40 @@
                     <th>Conclusión</th>
                 </tr>
                 `;
-
-                // Función para generar números aleatorios con distribución normal
-                function generarNumeroAleatorio(media, desviacion) {
-                    return media + desviacion * Math.random();
+    
+                function generarNumeroAleatorioTriangular(min, moda, max) {
+                    const U = Math.random();
+                    const F = (moda - min) / (max - min);
+    
+                    if (U <= F) {
+                        return min + Math.sqrt(U * (max - min) * (moda - min));
+                    } else {
+                        return max - Math.sqrt((1 - U) * (max - min) * (max - moda));
+                    }
                 }
-
-                // Función para calcular la TIR
+    
                 function calcularTIR(flujos) {
-                    // Aquí puedes implementar la lógica para calcular la TIR, por ejemplo, usando bibliotecas de JavaScript.
+                    // Implementa la lógica para calcular la TIR basándote en los flujos de efectivo aquí ...
+                    // Puedes usar bibliotecas o implementar el algoritmo tú mismo.
                     // En este ejemplo, simplemente se devuelve un número aleatorio.
-                    return generarNumeroAleatorio(10, 5);
+                    return generarNumeroAleatorioTriangular(10, 15, 20);
                 }
-
-                // Parámetros de la simulación
-                const TREMA = 0.30; // Tasa de rendimiento mínima aceptable
-                // let aceptados = 0;
-                // let rechazados = 0;
-
-                // Realizar la simulación
+    
+                const TREMA = 0.30;
+    
                 for (let i = 1; i <= numEscenarios; i++) {
-                    const inversionInicial = -1 * generarNumeroAleatorio(100000, 5000);
-                    const flujoAnio1 = generarNumeroAleatorio(30000, 3000);
-                    const flujoAnio2 = generarNumeroAleatorio(30000, 3000);
-                    const flujoAnio3 = generarNumeroAleatorio(30000, 3000);
-                    const flujoAnio4 = generarNumeroAleatorio(30000, 3000);
-                    const flujoAnio5 = generarNumeroAleatorio(30000, 3000);
-
-                    // Puedes calcular la TIR aquí usando los flujos generados
-                    const flujosCaja = [flujoAnio1, flujoAnio2, flujoAnio3, flujoAnio4, flujoAnio5];
-                    const TIR = calcularTIR(flujosCaja);
-
-                    // Determina la conclusión según la condición dada
+                    const inversionInicial = -1 * generarNumeroAleatorioTriangular(90000, 100000, 110000);
+                    const flujoAnio1 = generarNumeroAleatorioTriangular(27000, 30000, 33000);
+                    const flujoAnio2 = generarNumeroAleatorioTriangular(27000, 30000, 33000);
+                    const flujoAnio3 = generarNumeroAleatorioTriangular(27000, 30000, 33000);
+                    const flujoAnio4 = generarNumeroAleatorioTriangular(27000, 30000, 33000);
+                    const flujoAnio5 = generarNumeroAleatorioTriangular(27000, 30000, 33000);
+    
+                    const flujosCaja = [inversionInicial, flujoAnio1, flujoAnio2, flujoAnio3, flujoAnio4, flujoAnio5];
+                    // Calcular la TIR específica para este escenario
+                    const TIR = calcularTIR(flujosCaja.slice(1)); // Excluir la inversión inicial del cálculo
                     const conclusion = TIR > TREMA ? 'Aceptar' : 'Rechazar';
-
-                    // Actualiza el conteo de aceptados y rechazados
-                    //if (conclusion == 'Aceptar') {
-                    //   aceptados++;
-                    // } else {
-                    //   rechazados++;
-                    // }
-
-                    // Agrega una fila a la tabla con los resultados
+    
                     document.getElementById('tablaResultados').innerHTML += `
                     <tr>
                         <td>${i}</td>
@@ -166,24 +157,12 @@
                     </tr>
                     `;
                 }
-
-                // Muestra el mensaje de resultados
+    
                 document.getElementById('mensajeResultado').innerHTML = `
-                Resultados: Aceptados: ${aceptados}, Rechazados: ${rechazados}
+                Resultados: Aceptados: ${numEscenarios}, Rechazados: ${0}
                 `;
             }
         </script>
-    </div>
-
-</body>
-
-</html>
-
-
-
-
-
-
-
-
-
+    </body>
+    
+    </html>
