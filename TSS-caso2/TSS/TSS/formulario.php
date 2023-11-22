@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Inversión</title>
-</head>
-<style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #e6ebe0;
@@ -60,8 +59,8 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
-
     </style>
+</head>
 <body>
 
 <h1>Formulario de Inversión</h1>
@@ -91,8 +90,8 @@
     </select>
 
     <label for="conocimientosFinancieros">Conocimientos sobre conceptos financieros básicos:</label>
-    <input type="radio" name="conocimientosFinancieros" value="Sí" required> Sí
-    <input type="radio" name="conocimientosFinancieros" value="No" required> No
+    <input type="radio" name="conocimientosFinancieros" value="1" required> Sí
+    <input type="radio" name="conocimientosFinancieros" value="0" required> No
 
     <label for="objetivosCortoPlazo">Objetivos financieros a corto plazo:</label>
     <input type="text" name="objetivosCortoPlazo">
@@ -101,8 +100,15 @@
     <input type="text" name="objetivosLargoPlazo">
 
     <label for="cantidadDinero">Cantidad de dinero disponible para invertir:</label>
-    <input type="number" name="cantidadDinero" step="0.01" required>
+    <input type="number" name="cantidadDinero" step="0.01">
 
+     <!-- Nuevos campos para mediaI, desviacionEI, mediaF, y desviacionEF -->
+     <label for="mediaI">Media I:</label>
+    <input type="number" name="mediaI" required>
+
+    <label for="desviacionEI">Desviación EI:</label>
+    <input type="number" name="desviacionEI" required>
+    
     <label for="activosInteresados">Tipos de activos en los que están interesados:</label>
     <input type="checkbox" name="activosInteresados[]" value="Acciones"> Acciones
     <input type="checkbox" name="activosInteresados[]" value="BienesRaices"> Bienes Raíces
@@ -121,22 +127,33 @@
     <input type="number" name="deudasExistentes" step="0.01" required>
 
     <label for="conoceNegocio">¿Conoce el negocio en el que está interesado?</label>
-    <input type="radio" name="conoceNegocio" value="Sí" required> Sí
-    <input type="radio" name="conoceNegocio" value="No" required> No
+    <input type="radio" name="conoceNegocio" value="1" required> Sí
+    <input type="radio" name="conoceNegocio" value="0" required> No
 
     <label for="investigadoIndustria">¿Ha investigado sobre la industria?</label>
-    <input type="radio" name="investigadoIndustria" value="Sí" required> Sí
-    <input type="radio" name="investigadoIndustria" value="No" required> No
+    <input type="radio" name="investigadoIndustria" value="1" required> Sí
+    <input type="radio" name="investigadoIndustria" value="0" required> No
 
     <label for="comentariosAdicionales">Comentarios Adicionales:</label>
     <textarea name="comentariosAdicionales" rows="4" cols="50"></textarea>
     
+     <label for="flujoNetoPeriodoT">Flujo Neto Periodo T:</label>
+    <input type="number" name="flujoNetoPeriodoT" step="0.01">
+
+    <label for="mediaF">Media F:</label>
+    <input type="number" name="mediaF" required>
+
+    <label for="desviacionEF">Desviación EF:</label>
+    <input type="number" name="desviacionEF" required>
     
     <input type="submit" value="Enviar">
     <a class="header-btn" href="listaformulario.php">Cancelar</a>
-
 </form>
 
 </body>
 </html>
+
+
+
+
 
