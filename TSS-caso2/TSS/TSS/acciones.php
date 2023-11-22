@@ -6,21 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Página</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;900&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins';
             margin: 0;
             padding: 0;
-            background-color: #181c29;
+            background-color: #e6ebe0;
         }
 
         .header {
-            background: #181c29;
-            color: #fff;
-            height: 2cm;
+            background-color: #181c29; /* Color de fondo para la barra de encabezado */
+            color: #e6ebe0; /* Color del texto en la barra de encabezado */
+            padding: 20px; /* Espaciado interno en la barra de encabezado */
+            height: 1cm; /* Altura fija del encabezado */
+        }
+
+        .head {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
+            justify-content: space-between; /* Coloca el contenido a los extremos */
+            align-items: center; /* Centra verticalmente el contenido */
+        }
+
+        .logo a {
+            text-decoration: none; /* Elimina el subrayado del enlace */
+            color: white; /* Color del texto del enlace */
+            font-size: 20px; /* Tamaño del texto del enlace */
+        }
+
+        .navbar {
+            list-style: none; /* Elimina los estilos de la lista */
+            display: flex;
+        }
+
+        .navbar li {
+            margin-right: 20px; /* Espaciado entre elementos de la lista */
+            font-size: 23px; /* Tamaño del texto del enlace */
+
+        }
+
+        .navbar a {
+            text-decoration: none; /* Elimina el subrayado del enlace */
+            color: #9bc1bc; /* Color del texto del enlace */
+            padding: 20px 20px;
+            font-size: 23px; /* Tamaño del texto del enlace */
+        }
+
+        .header-btn {
+            text-decoration: none; /* Elimina el subrayado del botón de encabezado */
+            color: #9bc1bc; /* Color del texto del botón de encabezado */
+            margin-left: 20px; /* Espaciado a la izquierda del botón de encabezado */
         }
 
         .container {
@@ -41,7 +76,7 @@
             width: 6cm;
             height: 10cm;
             overflow: hidden;
-            color: #fff;
+            color: #181c29;
             /* Cambiar el color del texto a blanco */
             display: flex;
             flex-direction: column;
@@ -91,13 +126,22 @@
 
 <body>
     <div class="header">
-        <a class="header-btn" href="index.php">&lt; Atrás</a>
-        <h1>Estrategas Virtuosos</h1>
+        <div class="head">
+            <div class="logo">
+                <a href="#">Logo</a>
+            </div>
+            <nav class="navbar">
+                <li><a href="comp_inicio/AcercaDeNosotros.html">Acerca de Nosotros</a></li>
+                <li><a href="comp_inicio/politicaDePrivacidad.html">Politica de Privacidad</a></li>
+                <li><a href="comp_inicio/Ayuda.html">Centro de Ayuda</a></li>
+                <a class="header-btn" href="index.php">Atrás</a>
+            </nav>
+        </div>
     </div>
 
     <div class="container">
-         <!-- Tarjeta "Ejemplo de Simulación" -->
-         <div class="card">
+        <!-- Tarjeta "Ejemplo de Simulación" -->
+        <div class="card">
             <a href="inversionCaso2.html">
                 <h2>Ejemplo de Simulación</h2>
                 <img src="imagenes/ejemplo.jpg" alt="Imagen Ejemplo de Simulación">
@@ -121,6 +165,7 @@
 </body>
 
 </html>
+
 
 
 

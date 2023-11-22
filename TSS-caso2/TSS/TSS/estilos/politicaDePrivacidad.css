@@ -2,8 +2,8 @@
 
 body{
     font-family: 'Poppins';
-    background-color: #28324b; /* Cambia el color de fondo aquí */
-    color: white;
+    background-color: #e6ebe0; /* Cambia el color de fondo aquí */
+    color: #28324b;
     font-size: 1.2rem;
     line-height: 1.6em;
     margin: 0;
@@ -27,7 +27,7 @@ p {
 
 .header {
     background: #181c29;
-    color: white;
+    color: #9bc1bc;
     padding: 1rem 0;
 
     position: fixed;

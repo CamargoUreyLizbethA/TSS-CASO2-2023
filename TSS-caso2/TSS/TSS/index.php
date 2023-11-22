@@ -22,6 +22,7 @@
             object-fit: cover; /* Ajusta la imagen manteniendo su relación de aspecto y cubriendo completamente el contenedor */
         }
 
+        
         /* Estilos para los botones */
         .buttons-container {
             position: absolute;
@@ -37,8 +38,8 @@
             font-size: 18px;
             margin: 10px;
             cursor: pointer;
-            background-color: #3498db;
-            color: #fff;
+            background-color: #9bc1bc;
+            color: #28324b;
             border: none;
             border-radius: 5px;
         }
@@ -63,7 +64,7 @@
 
     <!-- Botones -->
     <div class="buttons-container">
-        <button class="login-btn" href="auth/iniciarSesion.php">Iniciar sesión</button>
+        <button class="login-btn" href="login.php">Iniciar sesión</button>
         <button class="signup-btn">Crear cuenta</button>
     </div>
 </body>
