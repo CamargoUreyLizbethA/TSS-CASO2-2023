@@ -7,20 +7,21 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e6ebe0;
+            background-blend-mode: multiply;
+            background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
+                linear-gradient(56deg, #002a4c 76%, #e30613 100%)!important;
             margin: 0;
             padding: 0;
         }
 
         h1 {
             text-align: center;
-            color: #28324b;
+            color: white;
         }
 
         form {
             max-width: 600px;
             margin: 20px auto;
-            background-color: #9bc1bc;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -29,7 +30,7 @@
         label {
             display: block;
             margin-bottom: 8px;
-            color: #555;
+            color: white;
         }
 
         input, select, textarea {
@@ -48,7 +49,7 @@
 
         input[type="submit"] {
             background-color: #4caf50;
-            color: #fff;
+            color: white;
             padding: 10px 15px;
             border: none;
             border-radius: 4px;

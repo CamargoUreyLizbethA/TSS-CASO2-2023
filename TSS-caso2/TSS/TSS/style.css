@@ -24,8 +24,6 @@ body {
     align-items: center;
     justify-content: space-between;
     height: 63px;
-    background: #181c29;
-    position: fixed;
     width: 100%;
     z-index: 100;
 }
@@ -65,6 +63,7 @@ body {
 
 .header {
     height: 60vh !important;
+    background-size: cover; /* Ajustamos la propiedad para cubrir todo el ancho y alto del encabezado */
     background: url(imagenes/inversiones.jpg) no-repeat center;
     background-size: cover;
 }

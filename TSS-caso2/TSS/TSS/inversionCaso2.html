@@ -1,168 +1,160 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulación de Inversión</title>
+<head> 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e6ebe0;
+            background-blend-mode: multiply;
+            background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
+                linear-gradient(56deg, #002a4c 76%, #e30613 100%)!important;
         }
 
-        .header {
-            background: #181c29;
-            color: #fff;
-            padding: 0.5px;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: -9px auto; /* Ajustado para compensar la altura del encabezado */
-            text-align: center;
-            display: flex;
-            flex-direction: column; /* Cambiado de 'row' a 'column' */
-            align-items: center; /* Centra las tarjetas horizontalmente */
+        h2 {
+            font-size: 24px; /* Puedes ajustar el tamaño según tus necesidades */
+            color: white;
         }
 
         table {
+            font-family: Arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
+            margin-top: 20px;
         }
 
         th, td {
-            border: 1px solid #dddddd;
+            border: 1px solid #181c29;
+            color: white;
             text-align: left;
             padding: 8px;
         }
 
         th {
-            background-color: #9bc1bc;
+            background-color: #181c29;
+        }
+
+        button {
+            margin-bottom: 10px;
+            background-color: #e30613; /* Fondo rojo */
+            color: white; /* Texto blanco */
+            border: none; /* Sin borde */
+            padding: 10px; /* Ajusta el espaciado interno según sea necesario */
+            cursor: pointer;
         }
     </style>
+    <title>Simulación de Decisiones sobre Inversiones</title>
 </head>
-
 <body>
-    <header class="header">
-        <div class="container logo-nav-container">
-            <h1>Estrategas Virtuosos</h1>
-            <nav class="navigation">
-                <ul>
-                    <li><a class="pagprinc" href=".\acciones.php">Atras</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <div class="container">
-        <h2>Caso de Estudio 2: Decisiones sobre Inversiones</h2>
+<h2>Configuración de Simulación</h2>
 
-        <p>Una empresa desea entrar en un nuevo negocio cuya inversión inicial requerida y los ingresos netos anuales después de impuestos están distribuidos como sigue:</p>
-        <ul>
-            <li>Inversión inicial N(media=100000, desviación estándar=5000)</li>
-            <li>Flujo neto del periodo t N(media=30000, desviación estándar=3000)</li>
-        </ul>
-        <p>Si la administración ha establecido que un proyecto de inversión será emprendido si Prob{TIR > TREMA} ≥ 0,90, y la TREMA es de 30%, ¿debería la empresa X aceptar este nuevo proyecto de inversión? Asuma un horizonte de planificación de 5 años y un valor de rescate al término de este tiempo de cero.</p>
+<button onclick="setInversionInicial()">Configurar Inversión Inicial</button>
+<button onclick="setFlujoNeto()">Configurar Flujo Neto del Periodo T</button>
+<button onclick="addEscenarios()">Añadir Escenarios</button>
+<button onclick="calcularTIR()">Calcular TIR</button>
 
-        <label for="numEscenarios">Número de Escenarios:</label>
-        <input type="number" id="numEscenarios" value="15">
+<h2>Simulación de Decisiones sobre Inversiones</h2>
 
-        <button onclick="realizarSimulacion()">Realizar Simulación</button>
+<table id="tablaSimulacion">
+    <tr>
+        <th>Escenario</th>
+        <th>Inversión Inicial</th>
+        <th>Flujo de Caja Neto del Año 1</th>
+        <th>Flujo de Caja Neto del Año 2</th>
+        <th>Flujo de Caja Neto del Año 3</th>
+        <th>Flujo de Caja Neto del Año 4</th>
+        <th>Flujo de Caja Neto del Año 5</th>
+        <th>TIR</th>
+        <th>APROBADO</th>
+    </tr>
+    
+</table>
 
-        <p id="mensajeResultado"></p>
+<script>
+    let escenarios = [];
+    let mediaInversion;
+    let desviacionInversion;
+    let mediaFlujo;
+    let desviacionFlujo;
 
-        <table id="tablaResultados">
-            <tr>
-                <th>Escenario</th>
-                <th>Inversión Inicial</th>
-                <th>Flujo de Caja Neto Año 1</th>
-                <th>Flujo de Caja Neto Año 2</th>
-                <th>Flujo de Caja Neto Año 3</th>
-                <th>Flujo de Caja Neto Año 4</th>
-                <th>Flujo de Caja Neto Año 5</th>
-                <th>TIR</th>
-                <th>TREMA</th>
-                <th>Conclusión</th>
-            </tr>
-        </table>
+    function setInversionInicial() {
+        mediaInversion = parseFloat(prompt("Ingrese la media de la inversión inicial:"));
+        desviacionInversion = parseFloat(prompt("Ingrese la desviación estándar de la inversión inicial:"));
+    }
 
-        <script>
-            function realizarSimulacion() {
-                const numEscenarios = document.getElementById('numEscenarios').value;
-    
-                document.getElementById('tablaResultados').innerHTML = `
-                <tr>
-                    <th>Escenario</th>
-                    <th>Inversión Inicial</th>
-                    <th>Flujo de Caja Neto Año 1</th>
-                    <th>Flujo de Caja Neto Año 2</th>
-                    <th>Flujo de Caja Neto Año 3</th>
-                    <th>Flujo de Caja Neto Año 4</th>
-                    <th>Flujo de Caja Neto Año 5</th>
-                    <th>TIR</th>
-                    <th>TREMA</th>
-                    <th>Conclusión</th>
-                </tr>
-                `;
-    
-                function generarNumeroAleatorioTriangular(min, moda, max) {
-                    const U = Math.random();
-                    const F = (moda - min) / (max - min);
-    
-                    if (U <= F) {
-                        return min + Math.sqrt(U * (max - min) * (moda - min));
-                    } else {
-                        return max - Math.sqrt((1 - U) * (max - min) * (max - moda));
-                    }
-                }
-    
-                function calcularTIR(flujos) {
-                    // Implementa la lógica para calcular la TIR basándote en los flujos de efectivo aquí ...
-                    // Puedes usar bibliotecas o implementar el algoritmo tú mismo.
-                    // En este ejemplo, simplemente se devuelve un número aleatorio.
-                    return generarNumeroAleatorioTriangular(10, 15, 20);
-                }
-    
-                const TREMA = 0.30;
-    
-                for (let i = 1; i <= numEscenarios; i++) {
-                    const inversionInicial = -1 * generarNumeroAleatorioTriangular(90000, 100000, 110000);
-                    const flujoAnio1 = generarNumeroAleatorioTriangular(27000, 30000, 33000);
-                    const flujoAnio2 = generarNumeroAleatorioTriangular(27000, 30000, 33000);
-                    const flujoAnio3 = generarNumeroAleatorioTriangular(27000, 30000, 33000);
-                    const flujoAnio4 = generarNumeroAleatorioTriangular(27000, 30000, 33000);
-                    const flujoAnio5 = generarNumeroAleatorioTriangular(27000, 30000, 33000);
-    
-                    const flujosCaja = [inversionInicial, flujoAnio1, flujoAnio2, flujoAnio3, flujoAnio4, flujoAnio5];
-                    // Calcular la TIR específica para este escenario
-                    const TIR = calcularTIR(flujosCaja.slice(1)); // Excluir la inversión inicial del cálculo
-                    const conclusion = TIR > TREMA ? 'Aceptar' : 'Rechazar';
-    
-                    document.getElementById('tablaResultados').innerHTML += `
-                    <tr>
-                        <td>${i}</td>
-                        <td>${inversionInicial.toFixed(2)}</td>
-                        <td>${flujoAnio1.toFixed(2)}</td>
-                        <td>${flujoAnio2.toFixed(2)}</td>
-                        <td>${flujoAnio3.toFixed(2)}</td>
-                        <td>${flujoAnio4.toFixed(2)}</td>
-                        <td>${flujoAnio5.toFixed(2)}</td>
-                        <td>${TIR.toFixed(2)}</td>
-                        <td>${TREMA.toFixed(2)}</td>
-                        <td>${conclusion}</td>
-                    </tr>
-                    `;
-                }
-    
-                document.getElementById('mensajeResultado').innerHTML = `
-                Resultados: Aceptados: ${numEscenarios}, Rechazados: ${0}
-                `;
-            }
-        </script>
-    </body>
-    
-    </html>
+    function setFlujoNeto() {
+        mediaFlujo = parseFloat(prompt("Ingrese la media del flujo neto del periodo t:"));
+        desviacionFlujo = parseFloat(prompt("Ingrese la desviación estándar del flujo neto del periodo t:"));
+    }
+
+    function addEscenarios() {
+        let numEscenarios = prompt("Ingrese el número de escenarios a simular:");
+        console.log("Número de Escenarios:", numEscenarios);
+
+        for (let i = 1; i <= numEscenarios; i++) {
+            let inversionInicial = generarNumeroAleatorio(mediaInversion, desviacionInversion);
+            let flujoAnual1 = generarNumeroAleatorio(mediaFlujo, desviacionFlujo);
+            let flujoAnual2 = generarNumeroAleatorio(mediaFlujo, desviacionFlujo);
+            let flujoAnual3 = generarNumeroAleatorio(mediaFlujo, desviacionFlujo);
+            let flujoAnual4 = generarNumeroAleatorio(mediaFlujo, desviacionFlujo);
+            let flujoAnual5 = generarNumeroAleatorio(mediaFlujo, desviacionFlujo);
+
+            let fila = `<tr>
+                            <td>${i}</td>
+                            <td>${inversionInicial}</td>
+                            <td>${flujoAnual1}</td>
+                            <td>${flujoAnual2}</td>
+                            <td>${flujoAnual3}</td>
+                            <td>${flujoAnual4}</td>
+                            <td>${flujoAnual5}</td>
+                            <td>Calculando...</td>
+                            <td>...</td>
+                        </tr>`;
+            document.getElementById("tablaSimulacion").insertAdjacentHTML('beforeend', fila);
+        }
+    }
+
+    function generarNumeroAleatorio(media, desviacion) {
+        return (Math.random() * desviacion * 2 + media - desviacion).toFixed(2);
+    }
+
+    function calcularTIR() {
+        // Recorre las filas de la tabla y calcula la TIR para cada escenario
+        let filas = document.getElementById("tablaSimulacion").rows;
+        for (let i = 1; i < filas.length; i++) {
+            let flujos = [
+                parseFloat(filas[i].cells[1].innerHTML),
+                parseFloat(filas[i].cells[2].innerHTML),
+                parseFloat(filas[i].cells[3].innerHTML),
+                parseFloat(filas[i].cells[4].innerHTML),
+                parseFloat(filas[i].cells[5].innerHTML),
+            ];
+
+            // Calcula la TIR para el escenario actual (usando el método FET)
+            let tirCalculada = calcularTIRconFET(flujos);
+            
+            // Actualiza la celda de TIR en la tabla
+            filas[i].cells[7].innerHTML = tirCalculada.toFixed(4);
+
+            // Añade la lógica para mostrar "APROBADO" o "NO" en la columna correspondiente
+            let aprobado = tirCalculada >= 0 ? "APROBADO" : "NO";
+            filas[i].cells[8].innerHTML = aprobado;
+        }
+    }
+
+    function calcularTIRconFET(flujos) {
+        let inversionInicial = flujos[0];
+        let flujosNetos = flujos.slice(1);
+        let factorRecuperacion = 0;
+        let acumulado = 0;
+
+        for (let i = 0; i < flujosNetos.length; i++) {
+            acumulado += flujosNetos[i];
+            factorRecuperacion += acumulado / Math.pow(1 + i, 2);
+        }
+
+        return (inversionInicial / factorRecuperacion - 1) * 100;
+    }
+</script>
+</body>
+</html>

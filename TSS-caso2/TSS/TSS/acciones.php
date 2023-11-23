@@ -9,15 +9,17 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;900&display=swap');
 
         body {
-            font-family: 'Poppins';
+            font-family:Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #e6ebe0;
+            background-blend-mode: multiply;
+            background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
+                linear-gradient(56deg, #002a4c 76%, #e30613 100%)!important;
         }
 
         .header {
             background-color: #181c29; /* Color de fondo para la barra de encabezado */
-            color: #e6ebe0; /* Color del texto en la barra de encabezado */
+            color: white; /* Color del texto en la barra de encabezado */
             padding: 20px; /* Espaciado interno en la barra de encabezado */
             height: 1cm; /* Altura fija del encabezado */
         }
@@ -47,14 +49,14 @@
 
         .navbar a {
             text-decoration: none; /* Elimina el subrayado del enlace */
-            color: #9bc1bc; /* Color del texto del enlace */
+            color: white; /* Color del texto del enlace */
             padding: 20px 20px;
             font-size: 23px; /* Tamaño del texto del enlace */
         }
 
         .header-btn {
             text-decoration: none; /* Elimina el subrayado del botón de encabezado */
-            color: #9bc1bc; /* Color del texto del botón de encabezado */
+            color: white; /* Color del texto del botón de encabezado */
             margin-left: 20px; /* Espaciado a la izquierda del botón de encabezado */
         }
 

@@ -7,14 +7,17 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e6ebe0;
+            background-blend-mode: multiply;
+            background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
+                linear-gradient(56deg, #002a4c 76%, #e30613 100%)!important;
+    color: white;
             margin: 0;
             padding: 0;
         }
         header {
             height: 2cm;
             background-color: #181c29;
-            color: #9bc1bc;
+            color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -22,12 +25,12 @@
         }
         h1 {
             text-align: center;
-            color: #28324b;
+            color: white;
         }
 
         button {
-            background-color: #9bc1bc;
-            color: #28324b;
+            background-color: #181c29;
+            color: white;
             padding: 10px 15px;
             border: none;
             border-radius: 4px;
@@ -43,7 +46,6 @@
             margin: 20px auto;
             border-collapse: collapse;
             width: 100%;
-            background-color: #9bc1bc; /* Fondo rojo para la tabla */
             margin-top: 20px; /* Margen superior */
             margin-bottom: 20px; /* Margen inferior */
         }
@@ -64,7 +66,7 @@
 
         a {
             text-decoration: none;
-            color: #28324b;
+            color: white;
         }
 
         a:hover {
@@ -124,7 +126,7 @@ if ($result->num_rows > 0) {
             <td>" . $row["cantidadDinero"] . "</td>
             <td>" . $row["activosInteresados"] . "</td>
             <td>" . $row["plazoInversion"] . "</td>
-            <td><a href='ver_formulario.php?id=" . $row["id"] . "'>Detalles De Simulacion</a></td>
+            <td><a href='resultadosSimulacion.php?id=" . $row["id"] . "'>Detalles De Simulacion</a></td>
 
             <!-- Agrega más columnas según sea necesario -->
         </tr>";

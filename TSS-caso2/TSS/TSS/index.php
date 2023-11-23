@@ -8,27 +8,45 @@
     <link rel="stylesheet" href="style.css">
     <title>Pagina web basica</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* Evita barras de desplazamiento */
-            position: relative; /* Asegura que los elementos absolutos se posicionen en relación con el cuerpo */
-        }
-
-        /* Estilos para la imagen */
-        img {
+         body {
+            font-family: Arial, sans-serif;
+            margin: 0; /* Eliminamos el margen para que el encabezado ocupe toda la altura */
+            padding: 0; /* Eliminamos el relleno para que el encabezado ocupe toda la altura */
+            text-align: center;
+            display: flex;
+            background-blend-mode: multiply;
+            background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
+                linear-gradient(56deg, #002a4c 76%, #e30613 100%)!important;
             width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ajusta la imagen manteniendo su relación de aspecto y cubriendo completamente el contenedor */
+            padding: 20px; /* Añadimos relleno al encabezado para separarlo del contenido */
+            box-sizing: border-box; /* Incluimos el relleno en el ancho total */
+            text-align: center;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Esto establecerá la altura del cuerpo al 100% del viewport */
         }
 
-        
+        header {
+            background-blend-mode: multiply;
+            background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
+                linear-gradient(56deg, #002a4c 76%, #e30613 100%)!important;
+            width: 100%;
+            padding: 20px; /* Añadimos relleno al encabezado para separarlo del contenido */
+            box-sizing: border-box; /* Incluimos el relleno en el ancho total */
+            text-align: center;
+            color: white;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block; /* Evita el espacio adicional debajo de la imagen */
+            margin: 0 auto; /* Centra la imagen horizontalmente */
+        }
+
         /* Estilos para los botones */
         .buttons-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             text-align: center;
         }
 
@@ -43,14 +61,46 @@
             border: none;
             border-radius: 5px;
         }
+
+        .head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px; /* Añadimos relleno al contenedor principal */
+        }
+
+        .logo a {
+            color: #white;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .navbar {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar li {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+        }
     </style>
 </head>
 
 <body>
+<header>
+        <h1 style="color: #ede6e6;">PROYECTO DE TALLER DE SIMULACION DE SISTEMAS-Taller 4</h1>
+        <img src="imagenes/logo redondo.png">
+    </header>
     <div class="head">
-        <div class="logo">
-            <a href="#">Logo</a>
-        </div>
+        
         <nav class="navbar">
             <li><a href="comp_inicio/AcercaDeNosotros.html">Acerca de Nosotros</a></li>
             <li><a href="comp_inicio/politicaDePrivacidad.html">Politica de Privacidad</a></li>
@@ -62,11 +112,7 @@
     <!-- Agregar una imagen -->
     <img src="imagenes/inversiones.jpg" alt="Descripción de la imagen">
 
-    <!-- Botones -->
-    <div class="buttons-container">
-        <button class="login-btn" href="login.php">Iniciar sesión</button>
-        <button class="signup-btn">Crear cuenta</button>
-    </div>
+
 </body>
 
 </html>
