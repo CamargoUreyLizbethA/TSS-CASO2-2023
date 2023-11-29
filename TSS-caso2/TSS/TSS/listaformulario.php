@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +11,11 @@
             background-blend-mode: multiply;
             background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
                 linear-gradient(56deg, #002a4c 76%, #e30613 100%)!important;
-    color: white;
+            color: white;
             margin: 0;
             padding: 0;
         }
+
         header {
             height: 2cm;
             background-color: #181c29;
@@ -23,13 +25,15 @@
             align-items: center;
             padding: 0 20px;
         }
+
         h1 {
             text-align: center;
             color: white;
+            flex-grow: 1; /* Permite que el título crezca para ocupar el espacio restante */
         }
 
-        button {
-            background-color: #181c29;
+        button.header-btn {
+            background-color: red; /* Cambia el color a rojo */
             color: white;
             padding: 10px 15px;
             border: none;
@@ -39,22 +43,28 @@
             margin: 20px;
         }
 
-        
+        img {
+            max-height: 100%;
+            max-width: 100%;
+        }
 
         table {
             max-width: 600px;
             margin: 20px auto;
             border-collapse: collapse;
             width: 100%;
-            margin-top: 20px; /* Margen superior */
-            margin-bottom: 20px; /* Margen inferior */
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
-        table, th, td {
+        table,
+        th,
+        td {
             border: 1px solid #ddd;
         }
 
-        th, td {
+        th,
+        td {
             padding: 8px;
             text-align: left;
         }
@@ -72,14 +82,28 @@
         a:hover {
             text-decoration: underline;
         }
+        form {
+        margin-top: 2cm; /* Separación de 2cm desde el encabezado */
+        text-align: right; /* Alineación a la derecha */
+        margin-right: 20px; /* Margen derecho para mayor espacio */
+    }
+
+    button[type="submit"] {
+        background-color: #181c29;
+        color: white;
+        padding: 10px 15px;
+    }
     </style>
 </head>
+
 <body>
-<header>
-        <h1>Estrategas</h1>
-        <button onclick="goBack()">Atrás</button>
+    <header>
+        <img src="imagenes/logo redondo.png" alt="Logo"> <!-- Ajusta la ruta del logo -->
+        <h1>Formularios de Inversión</h1>
+        <a class="header-btn" href="acciones.php">Atrás</a>
+
     </header>
-<h1>Formularios de Inversión</h1>
+
 
 <!-- Botón para ir a la página del formulario -->
 <form action="formulario.php" method="get">
@@ -139,10 +163,6 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
- <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
+
 </body>
 </html>

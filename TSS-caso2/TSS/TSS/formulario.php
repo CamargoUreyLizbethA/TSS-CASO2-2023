@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,36 @@
                 linear-gradient(56deg, #002a4c 76%, #e30613 100%)!important;
             margin: 0;
             padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #181c29;
+            height: 2cm;
+        }
+
+        header img {
+            height: 100%;
+        }
+
+        header h1 {
+            text-align: center;
+            color: white;
+            margin: 0;
+        }
+
+        .header-btn {
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
         }
 
         h1 {
@@ -33,7 +64,9 @@
             color: white;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 8px;
             margin-bottom: 16px;
@@ -62,10 +95,14 @@
         }
     </style>
 </head>
+
 <body>
 
-<h1>Formulario de Inversión</h1>
-
+    <header>
+        <img src="imagenes/logo redondo.png" alt="Logo">
+        <h1>Formulario de Inversión</h1>
+        <a class="header-btn" href="listaformulario.php">Cancelar</a>
+    </header>
 <form action="procesar_formulario.php" method="post">
     <label for="nombreCompleto">Nombre Completo:</label>
     <input type="text" name="nombreCompleto" required>
