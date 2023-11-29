@@ -1,176 +1,154 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Página</title>
+    <!-- Agrega la siguiente línea para incluir Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;900&display=swap');
-
         body {
-            font-family:Arial, Helvetica, sans-serif;
-            margin: 0;
-            padding: 0;
             background-blend-mode: multiply;
             background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
                 linear-gradient(56deg, #002a4c 76%, #e30613 100%)!important;
+                font-family:Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            }
+            .container {
+            margin-top: 2cm;
         }
-
-        .header {
-            background-color: #181c29; /* Color de fondo para la barra de encabezado */
-            color: white; /* Color del texto en la barra de encabezado */
-            padding: 20px; /* Espaciado interno en la barra de encabezado */
-            height: 1cm; /* Altura fija del encabezado */
-        }
-
-        .head {
-            display: flex;
-            justify-content: space-between; /* Coloca el contenido a los extremos */
-            align-items: center; /* Centra verticalmente el contenido */
-        }
-
-        .logo a {
-            text-decoration: none; /* Elimina el subrayado del enlace */
-            color: white; /* Color del texto del enlace */
-            font-size: 20px; /* Tamaño del texto del enlace */
-        }
-
-        .navbar {
-            list-style: none; /* Elimina los estilos de la lista */
-            display: flex;
-        }
-
-        .navbar li {
-            margin-right: 20px; /* Espaciado entre elementos de la lista */
-            font-size: 23px; /* Tamaño del texto del enlace */
-
-        }
-
-        .navbar a {
-            text-decoration: none; /* Elimina el subrayado del enlace */
-            color: white; /* Color del texto del enlace */
-            padding: 20px 20px;
-            font-size: 23px; /* Tamaño del texto del enlace */
-        }
-
-        .header-btn {
-            text-decoration: none; /* Elimina el subrayado del botón de encabezado */
-            color: white; /* Color del texto del botón de encabezado */
-            margin-left: 20px; /* Espaciado a la izquierda del botón de encabezado */
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 22px auto; /* Ajustado para compensar la altura del encabezado */
-            text-align: center;
-            display: flex;
-            flex-direction: column; /* Cambiado de 'row' a 'column' */
-            align-items: center; /* Centra las tarjetas horizontalmente */
-        }
-
         .card {
-            position: relative;
-            background-color: #28324b;
+            background-color: #181c29;
+            color: white;
             border-radius: 8px;
+            margin: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-            width: 6cm;
-            height: 10cm;
-            overflow: hidden;
-            color: #181c29;
-            /* Cambiar el color del texto a blanco */
+            text-align: center;
+            width: 10cm; /* Ancho de la tarjeta */
+            height: 12cm; /* Largo de la tarjeta */
+            overflow: hidden; /* Para recortar las imágenes si son más grandes */
+        }
+
+        .card a {
+            text-decoration: none;
+            color: white;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            /* Cambiar el cursor a la manito cuando pases sobre la tarjeta */
+            height: 100%;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
         }
 
         .card img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            /* Hace que la imagen cubra todo el contenedor sin distorsionarse */
-            z-index: 0;
-            /* Coloca la imagen detrás del texto */
+            object-fit: cover; /* Ajusta la imagen al tamaño del contenedor sin distorsionar */
+            border-radius: 8px;
+        }
+        .header {
+            height: 2cm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            background-color: #181c29;
+            color: white;
         }
 
-        .card h2 {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .logo {
+            height: 100%;
+            margin-right: 20px;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+        }
+
+        .nav-links {
+            list-style: none;
             margin: 0;
-            /* Elimina el margen predeterminado del encabezado */
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
         }
 
         .header-btn {
-            margin-bottom: 20px;
-            color: #fff;
+            background-color: #e30613;
+            color: white;
+            border: none;
+            padding: 10px 20px;
             text-decoration: none;
-            font-size: 1em;
-        }
-
-        /* Estilo para el enlace dentro de la tarjeta */
-        .card a {
-            text-decoration: none;
-            /* Elimina el subrayado del enlace */
-            color: inherit;
-            /* Hereda el color del texto de la tarjeta */
-            display: block;
-            width: 100%;
-            height: 100%;
+            border-radius: 5px;
+            font-weight: bold;
         }
     </style>
+    <title>Header</title>
 </head>
-
 <body>
-    <div class="header">
-        <div class="head">
-            <div class="logo">
-                <a href="#">Logo</a>
-            </div>
-            <nav class="navbar">
-                <li><a href="comp_inicio/AcercaDeNosotros.html">Acerca de Nosotros</a></li>
-                <li><a href="comp_inicio/politicaDePrivacidad.html">Politica de Privacidad</a></li>
-                <li><a href="comp_inicio/Ayuda.html">Centro de Ayuda</a></li>
-                <a class="header-btn" href="index.php">Atrás</a>
-            </nav>
-        </div>
-    </div>
 
-    <div class="container">
+<div class="header">
+    <div class="logo">
+        <!-- Agrega aquí la imagen de tu logo -->
+        <img src="imagenes/logo redondo.png" alt="Logo">
+    </div>
+    <ul class="nav-links">
+        <li><a href="comp_inicio/AcercaDeNosotros.html">Acerca de Nosotros</a></li>
+        <li><a href="comp_inicio/politicaDePrivacidad.html">Politica de Privacidad</a></li>
+        <li><a href="comp_inicio/Ayuda.html">Centro de Ayuda</a></li>
+    </ul>
+    <a class="header-btn" href="index.php">Atrás</a>
+</div>
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         <!-- Tarjeta "Ejemplo de Simulación" -->
-        <div class="card">
-            <a href="inversionCaso2.html">
-                <h2>Ejemplo de Simulación</h2>
-                <img src="imagenes/ejemplo.jpg" alt="Imagen Ejemplo de Simulación">
-            </a>
+        <div class="col">
+            <div class="card">
+                <a href="inversionCaso2.html">
+                    <h2>Ejemplo de Simulación</h2>
+                    <img src="imagenes/ejemplo.jpg" alt="Imagen Ejemplo de Simulación">
+                </a>
+            </div>
         </div>
         <!-- Tarjeta "Simular" -->
-        <div class="card">
-            <a href="listaformulario.php">
-                <h2>Formulario Para Simular</h2>
-                <img src="imagenes/simulacion.jpg" alt="Imagen Simular">
-            </a>
+        <div class="col">
+            <div class="card">
+                <a href="listaformulario.php">
+                    <h2>Formulario Para Simular</h2>
+                    <img src="imagenes/simulacion.jpg" alt="Imagen Simular">
+                </a>
+            </div>
         </div>
         <!-- Tarjeta "Aprender" -->
-        <div class="card">
-            <a href="aprender.php">
-                <h2>Aprender Sobre La Aplicacion</h2>
-                <img src="imagenes/aprenderS.jpg" alt="Imagen Aprender">
-            </a>
+        <div class="col">
+            <div class="card">
+                <a href="aprender.php">
+                    <h2>Aprender Sobre La Aplicacion</h2>
+                    <img src="imagenes/aprenderS.jpg" alt="Imagen Aprender">
+                </a>
+            </div>
         </div>
     </div>
+</div>
+
+<!-- Agrega la siguiente línea para incluir Bootstrap JS y Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
-
 </html>
-
-
-
-
-
-
 
