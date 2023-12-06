@@ -3,7 +3,8 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
+
+<style>
         body {
             background-blend-mode: multiply;
             background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
@@ -84,7 +85,21 @@
     <title>Simulación de Decisiones sobre Inversiones</title>
 </head>
 <body>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 
+    <a href="javascript:genPDF()">Descargar PDF</a>
+    <script type="text/javascript">
+        function genPDF() {
+        var doc = new jsPDF();
+            doc.html(document.body, {
+               callback: function (doc) {
+                doc.save('INFORME SOBRE INVERSION.pdf');
+                }
+            });
+    }
+    </script>
+    
 <header>
     <img src="imagenes/logo redondo.png" alt="Logo"> <!-- Reemplaza "ruta_del_logo.png" con la ruta real de tu logo -->
     <h2>Caso 2</h2>
@@ -206,6 +221,8 @@
             let aprobado = tirCalculada >= 0 ? "APROBADO" : "NO";
             filas[i].cells[8].innerHTML = aprobado;
         }
+        document.getElementById("tablaSimulacion").insertAdjacentHTML('afterend', '<button onclick="generarPDF()">Generar PDF</button>');
+
     }
 
     function calcularTIRconFET(flujos) {
@@ -221,6 +238,8 @@
 
         return (inversionInicial / factorRecuperacion - 1) * 100;
     }
+
+
 
     function goBack() {
         history.back();
