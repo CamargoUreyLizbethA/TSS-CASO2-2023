@@ -48,10 +48,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 function calcularTIR($inversionInicial, $flujoNeto) {
-    // Implementa aquí el cálculo de la TIR
-    // (puedes usar funciones o bibliotecas específicas de PHP)
-    return 0.1; // Ejemplo: reemplaza con el cálculo real
+    // Se asume que $flujoNeto es un array de flujos de caja para cada período.
+    $flujos = [-$inversionInicial]; // Se agrega el flujo inicial como negativo.
+
+    foreach ($flujoNeto as $flujo) {
+        $flujos[] = $flujo;
+    }
+
+    $tir = null;
+
+    // Intenta calcular la TIR usando la función financiera de PHP.
+    try {
+        $tir = financial_tir($flujos);
+    } catch (Exception $e) {
+        // Maneja cualquier excepción que pueda ocurrir durante el cálculo.
+        // Puedes personalizar esta parte según tus necesidades.
+        echo "Error al calcular la TIR: " . $e->getMessage();
+    }
+
+    return $tir;
 }
+
+// Función financiera para calcular la TIR usando el método de Newton-Raphson.
+function financial_tir($cashes) {
+    $precision = 0.0001; // Precisión deseada
+    $maxIterations = 100; // Número máximo de iteraciones
+
+    $guess = 0.1; // Suposición inicial
+
+    for ($i = 0; $i < $maxIterations; $i++) {
+        $result = 0;
+
+        foreach ($cashes as $key => $cash) {
+            $result += $cash / pow((1 + $guess), $key);
+        }
+
+        $derivative = 0;
+
+        foreach ($cashes as $key => $cash) {
+            $derivative -= $key * $cash / pow((1 + $guess), $key + 1);
+        }
+
+        $guess -= $result / $derivative;
+
+        if (abs($result) < $precision) {
+            // La TIR ha convergido a la precisión deseada.
+            return $guess;
+        }
+    }
+
+    throw new Exception("No se pudo calcular la TIR después de $maxIterations iteraciones.");
+}
+
 
 function calcularTREMA($inversionInicial, $flujoNeto) {
     // Implementa aquí el cálculo de la TREMA

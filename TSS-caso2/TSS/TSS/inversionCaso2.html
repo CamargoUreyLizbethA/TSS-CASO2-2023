@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head> 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             background-blend-mode: multiply;
             background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
                 linear-gradient(56deg, #002a4c 76%, #e30613 100%)!important;
             margin: 0; /* Elimina el margen predeterminado del body */
+            text-align: center; /* Centra el contenido del body */
+
         }
 
         header {
@@ -41,13 +43,18 @@
         h2 {
             font-size: 24px;
             color: white;
+            text-align: center; /* Centra el texto */
         }
-
+        p{
+            color:white;
+            text-align: center; /* Centra el texto */
+            font-size: 18px; /* Tamaño de letra aumentado */
+        }
         table {
             font-family: Arial, sans-serif;
             border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
+            width: 100%; /* Ajusta el ancho de la tabla según sea necesario */
+            margin: 20px auto; /* Centra la tabla horizontalmente y agrega espacio arriba/abajo */
         }
 
         th, td {
@@ -60,6 +67,19 @@
         th {
             background-color: #181c29;
         }
+
+        /* Estilos específicos para la tabla */
+        table.small-table {
+            width: 40%; /* Ajusta el ancho de la tabla específica según sea necesario */
+        }
+
+        table.small-table td:nth-child(1) {
+            background-color: #002a4c; /* Fondo azul para la primera columna */
+        }
+
+        table.small-table td:nth-child(2) {
+            background-color: #1f8dd6; /* Fondo celeste para la segunda columna */
+        }
     </style>
     <title>Simulación de Decisiones sobre Inversiones</title>
 </head>
@@ -71,13 +91,34 @@
     <button onclick="goBack()">Atrás</button>
 </header>
 
-<h2>Configuración de Simulación</h2>
+<div>
+    <h2>Caso de Estudio 2: Decisiones sobre Inversiones</h2>
+    <p>Una empresa desea entrar en un nuevo negocio cuya inversión inicial requerida y los ingresos netos anuales después de impuestos están distribuidos como sigue:</p>
+    <table class="small-table">
+        <tr>
+            <td>Inversión inicial</td>
+            <td>N(μ =100.000, σ = 5.000)</td>
+        </tr>
+        <tr>
+            <td>Flujo neto del periodo t</td>
+            <td>N(μ = 30.000, σ = 3.000)</td>
+        </tr>
+    </table>
+    <br><br>
+    
+    <p>Si la administración ha establecido que un proyecto de inversión será emprendido si Prob{TIR > TREMA} ≥ 0,90, y la TREMA es de 30%, ¿debería la empresa X aceptar este</p>
+    <p>nuevo proyecto de inversión? Asuma un horizonte de planeación de 5 años y un valor de rescate al término de este tiempo de cero.</p>
+</div>
 
+
+
+<h2>Configuración de Simulación</h2>
+<div>
 <button onclick="setInversionInicial()">Configurar Inversión Inicial</button>
 <button onclick="setFlujoNeto()">Configurar Flujo Neto del Periodo T</button>
 <button onclick="addEscenarios()">Añadir Escenarios</button>
 <button onclick="calcularTIR()">Calcular TIR</button>
-
+</div>
 <h2>Simulación de Decisiones sobre Inversiones</h2>
 
 <table id="tablaSimulacion">
