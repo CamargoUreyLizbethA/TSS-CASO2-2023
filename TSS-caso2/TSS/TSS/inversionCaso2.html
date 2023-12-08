@@ -3,6 +3,8 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
     <style>
         body {
             background-blend-mode: multiply;
@@ -42,11 +44,11 @@
 
         h2 {
             font-size: 24px;
-            color: white;
+            color: black;
             text-align: center; /* Centra el texto */
         }
         p{
-            color:white;
+            color:black;
             text-align: center; /* Centra el texto */
             font-size: 18px; /* Tamaño de letra aumentado */
         }
@@ -59,7 +61,7 @@
 
         th, td {
             border: 1px solid #181c29;
-            color: white;
+            color:black;
             text-align: left;
             padding: 8px;
         }
@@ -82,14 +84,11 @@
         }
     </style>
     <title>Simulación de Decisiones sobre Inversiones</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
-
 </head>
 <body>
-
 <header>
     <img src="imagenes/logo redondo.png" alt="Logo"> <!-- Reemplaza "ruta_del_logo.png" con la ruta real de tu logo -->
-    <h2>Caso 2</h2>
+    <h2>Caso de Estudio 2: Decisiones sobre Inversiones</h2>
     <button onclick="goBack()">Atrás</button>
 </header>
 <div id="contenido-pdf">
@@ -111,9 +110,6 @@
     <p>Si la administración ha establecido que un proyecto de inversión será emprendido si Prob{TIR > TREMA} ≥ 0,90, y la TREMA es de 30%, ¿debería la empresa X aceptar este</p>
     <p>nuevo proyecto de inversión? Asuma un horizonte de planeación de 5 años y un valor de rescate al término de este tiempo de cero.</p>
 </div>
-
-
-
 <h2>Configuración de Simulación</h2>
 <div>
 <button onclick="setInversionInicial()">Configurar Inversión Inicial</button>
@@ -140,7 +136,6 @@
     
 </table>
 </div>
-
 <script>
     let escenarios = [];
     let mediaInversion;
@@ -190,28 +185,28 @@
     }
 
     function calcularTIR() {
-        // Recorre las filas de la tabla y calcula la TIR para cada escenario
-        let filas = document.getElementById("tablaSimulacion").rows;
-        for (let i = 1; i < filas.length; i++) {
-            let flujos = [
-                parseFloat(filas[i].cells[1].innerHTML),
-                parseFloat(filas[i].cells[2].innerHTML),
-                parseFloat(filas[i].cells[3].innerHTML),
-                parseFloat(filas[i].cells[4].innerHTML),
-                parseFloat(filas[i].cells[5].innerHTML),
-            ];
+    // Recorre las filas de la tabla y calcula la TIR para cada escenario
+    let filas = document.getElementById("tablaSimulacion").rows;
+    for (let i = 1; i < filas.length; i++) {
+        let flujos = [
+            parseFloat(filas[i].cells[1].textContent), // Convertir a número
+            parseFloat(filas[i].cells[2].textContent), // Convertir a número
+            parseFloat(filas[i].cells[3].textContent), // Convertir a número
+            parseFloat(filas[i].cells[4].textContent), // Convertir a número
+            parseFloat(filas[i].cells[5].textContent), // Convertir a número
+        ];
 
-            // Calcula la TIR para el escenario actual (usando el método FET)
-            let tirCalculada = calcularTIRconFET(flujos);
-            
-            // Actualiza la celda de TIR en la tabla
-            filas[i].cells[7].innerHTML = tirCalculada.toFixed(4);
+        // Calcula la TIR para el escenario actual (usando el método FET)
+        let tirCalculada = calcularTIRconFET(flujos);
 
-            // Añade la lógica para mostrar "APROBADO" o "NO" en la columna correspondiente
-            let aprobado = tirCalculada >= 0 ? "APROBADO" : "NO";
-            filas[i].cells[8].innerHTML = aprobado;
-        }
+        // Actualiza la celda de TIR en la tabla
+        filas[i].cells[7].innerHTML = tirCalculada.toFixed(4);
+
+        // Añade la lógica para mostrar "APROBADO" o "NO" en la columna correspondiente
+        let aprobado = tirCalculada >= 0 ? "APROBADO" : "NO";
+        filas[i].cells[8].innerHTML = aprobado;
     }
+}
 
     function calcularTIRconFET(flujos) {
         let inversionInicial = flujos[0];
@@ -228,10 +223,14 @@
     }
     
     function generarPDF() {
-        const element = document.getElementById("contenido-pdf");
-        html2pdf(element);
-    }
+    const element = document.getElementById("contenido-pdf");
 
+    // Esperar un breve momento para que las operaciones asíncronas se completen
+    setTimeout(function () {
+        html2pdf(element);
+    }, 500);
+}
+     //boton para ir atras
     function goBack() {
         history.back();
     }
