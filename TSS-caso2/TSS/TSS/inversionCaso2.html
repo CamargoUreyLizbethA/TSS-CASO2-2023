@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            background:#e4e5de;
+            background-blend-mode: multiply;
+            background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
+                linear-gradient(56deg, #002a4c 76%, #e30613 100%)!important;
             margin: 0; /* Elimina el margen predeterminado del body */
             text-align: center; /* Centra el contenido del body */
 
@@ -35,7 +36,7 @@
         }
 
         button {
-            background-color: #e30613;
+            background-color: #181c29;
             color: white;
             border: none;
             padding: 10px;
@@ -66,6 +67,7 @@
             border: 1px solid #181c29;
             color:#181c29;
             padding: 8px;
+            background-color: #f5f5f5;
         }
 
         th {
@@ -100,6 +102,11 @@
 </header>
 <div id="contenido-pdf">
 <div>
+    <!-- Botón para mostrar/ocultar la explicación de cálculos -->
+<button onclick="toggleDescripcion()" style="margin-bottom: 10px; padding: 8px 16px; background-color: #002a4c; color: white; border: none; cursor: pointer;">Descripcion</button>
+
+<!-- Área oculta para la explicación de cálculos -->
+<div id="explicacion-descripcion" style="display: none; background-color: #f5f5f5; padding: 10px; border-radius: 5px;">
     <h2>Caso de Estudio 2: Decisiones sobre Inversiones</h2>
     <p>Una empresa desea entrar en un nuevo negocio cuya inversión inicial requerida y los ingresos netos anuales después de impuestos están distribuidos como sigue:</p>
     <table class="small-table">
@@ -114,16 +121,17 @@
     </table>    
     <p>Si la administración ha establecido que un proyecto de inversión será emprendido si Prob{TIR > TREMA} ≥ 0,90, y la TREMA es de 30%, ¿debería la empresa X aceptar este nuevo proyecto de inversión? .Asuma un horizonte de planeación de 5 años y un valor de rescate al término de este tiempo de cero.</p>
 </div>
+    
+</div>
 <h2>Configuración de Simulación</h2>
 <div>
 <button onclick="setInversionInicial()">Configurar Inversión Inicial</button>
 <button onclick="setFlujoNeto()">Configurar Flujo Neto del Periodo T</button>
 <button onclick="addEscenarios()">Añadir Escenarios</button>
 <button onclick="calcularTIR()">Calcular TIR</button>
-<button onclick="generarPDF()">Generar PDF</button>
-<button onclick="generarExcel()">Generar Excel</button>
-
-
+<tr></tr>
+<button onclick="generarPDF()" style="background-color: #a52019; color: white; border: none; padding: 8px; cursor: pointer;">Generar PDF <span>&#128462;</span></button>
+<button onclick="generarExcel()" style="background-color: #008f39; color: white; border: none; padding: 8px; cursor: pointer;">Generar Excel <i class="fas fa-file-excel"></i></button>
 </div>
 <h2>Simulación de Decisiones sobre Inversiones</h2>
 <!-- Botón para mostrar/ocultar la explicación de cálculos -->
@@ -152,6 +160,12 @@
 </table>
 </div>
 <script>
+     // Función para mostrar u ocultar la explicación de cálculos
+     function toggleDescripcion() {
+        const descripcion = document.getElementById("explicacion-descripcion");
+        descripcion.style.display = (descripcion.style.display === "none") ? "block" : "none";
+    }
+
      // Función para mostrar u ocultar la explicación de cálculos
      function toggleExplicacion() {
         const explicacion = document.getElementById("explicacion-calculos");
