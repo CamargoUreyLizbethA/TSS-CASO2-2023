@@ -122,7 +122,16 @@
 
 </div>
 <h2>Simulación de Decisiones sobre Inversiones</h2>
+<!-- Botón para mostrar/ocultar la explicación de cálculos -->
+<button onclick="toggleExplicacion()" style="margin-bottom: 10px; padding: 8px 16px; background-color: #002a4c; color: white; border: none; cursor: pointer;">Explicación de cálculos</button>
 
+<!-- Área oculta para la explicación de cálculos -->
+<div id="explicacion-calculos" style="display: none; background-color: #f5f5f5; padding: 10px; border-radius: 5px;">
+    <h3>Explicación de Cálculos</h3>
+    <h3 style="color: #333;">Escenario</h3>
+    <p>Se refiere a una instancia específica de la simulación de decisiones sobre inversiones. Cada vez que se ejecuta la función addEscenarios(), se generan varios escenarios simulados para evaluar el rendimiento financiero del proyecto de inversión en diferentes condiciones.</p>
+    <!-- Agrega más explicaciones según sea necesario -->
+</div>
 <table id="tablaSimulacion">
     <tr>
         <th>Escenario</th>
@@ -139,6 +148,11 @@
 </table>
 </div>
 <script>
+     // Función para mostrar u ocultar la explicación de cálculos
+     function toggleExplicacion() {
+        const explicacion = document.getElementById("explicacion-calculos");
+        explicacion.style.display = (explicacion.style.display === "none") ? "block" : "none";
+    }
     let escenarios = [];
     let mediaInversion;
     let desviacionInversion;
@@ -278,6 +292,7 @@
     function goBack() {
         history.back();
     }
+
 </script>
 </body>
 </html>
