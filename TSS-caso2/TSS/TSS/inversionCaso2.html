@@ -3,8 +3,7 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
+    <style>
         body {
             background-blend-mode: multiply;
             background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
@@ -83,29 +82,17 @@
         }
     </style>
     <title>Simulación de Decisiones sobre Inversiones</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
 </head>
 <body>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 
-    <a href="javascript:genPDF()">Descargar PDF</a>
-    <script type="text/javascript">
-        function genPDF() {
-        var doc = new jsPDF();
-            doc.html(document.body, {
-               callback: function (doc) {
-                doc.save('INFORME SOBRE INVERSION.pdf');
-                }
-            });
-    }
-    </script>
-    
 <header>
     <img src="imagenes/logo redondo.png" alt="Logo"> <!-- Reemplaza "ruta_del_logo.png" con la ruta real de tu logo -->
     <h2>Caso 2</h2>
     <button onclick="goBack()">Atrás</button>
 </header>
-
+<div id="contenido-pdf">
 <div>
     <h2>Caso de Estudio 2: Decisiones sobre Inversiones</h2>
     <p>Una empresa desea entrar en un nuevo negocio cuya inversión inicial requerida y los ingresos netos anuales después de impuestos están distribuidos como sigue:</p>
@@ -133,6 +120,8 @@
 <button onclick="setFlujoNeto()">Configurar Flujo Neto del Periodo T</button>
 <button onclick="addEscenarios()">Añadir Escenarios</button>
 <button onclick="calcularTIR()">Calcular TIR</button>
+<button onclick="generarPDF()">Generar PDF</button>
+
 </div>
 <h2>Simulación de Decisiones sobre Inversiones</h2>
 
@@ -150,6 +139,7 @@
     </tr>
     
 </table>
+</div>
 
 <script>
     let escenarios = [];
@@ -221,8 +211,6 @@
             let aprobado = tirCalculada >= 0 ? "APROBADO" : "NO";
             filas[i].cells[8].innerHTML = aprobado;
         }
-        document.getElementById("tablaSimulacion").insertAdjacentHTML('afterend', '<button onclick="generarPDF()">Generar PDF</button>');
-
     }
 
     function calcularTIRconFET(flujos) {
@@ -238,8 +226,11 @@
 
         return (inversionInicial / factorRecuperacion - 1) * 100;
     }
-
-
+    
+    function generarPDF() {
+        const element = document.getElementById("contenido-pdf");
+        html2pdf(element);
+    }
 
     function goBack() {
         history.back();
