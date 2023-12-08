@@ -144,6 +144,12 @@
     <p>Se refiere a una instancia específica de la simulación de decisiones sobre inversiones. Cada vez que se ejecuta la función addEscenarios(), se generan varios escenarios simulados para evaluar el rendimiento financiero del proyecto de inversión en diferentes condiciones.</p>
     <!-- Agrega más explicaciones según sea necesario -->
 </div>
+<!-- Área para mostrar el mensaje de factibilidad de inversión -->
+<div id="mensaje-factibilidad" style="margin-top: 20px; color: white;"></div>
+<!-- Área para mostrar la conclusión general -->
+<div id="conclusion-general" style="margin-top: 20px; background-color: #002a4c; color: white; padding: 10px; border-radius: 5px;">
+</div>
+
 <table id="tablaSimulacion">
     <tr>
         <th>Escenario</th>
@@ -219,28 +225,44 @@
     }
 
     function calcularTIR() {
-    // Recorre las filas de la tabla y calcula la TIR para cada escenario
+        let escenariosAprobados = 0;
+        let escenariosNoAprobados = 0;
     let filas = document.getElementById("tablaSimulacion").rows;
     for (let i = 1; i < filas.length; i++) {
         let flujos = [
-            parseFloat(filas[i].cells[1].textContent), // Convertir a número
-            parseFloat(filas[i].cells[2].textContent), // Convertir a número
-            parseFloat(filas[i].cells[3].textContent), // Convertir a número
-            parseFloat(filas[i].cells[4].textContent), // Convertir a número
-            parseFloat(filas[i].cells[5].textContent), // Convertir a número
+            parseFloat(filas[i].cells[1].innerHTML),
+            parseFloat(filas[i].cells[2].innerHTML),
+            parseFloat(filas[i].cells[3].innerHTML),
+            parseFloat(filas[i].cells[4].innerHTML),
+            parseFloat(filas[i].cells[5].innerHTML),
         ];
-
-        // Calcula la TIR para el escenario actual (usando el método FET)
         let tirCalculada = calcularTIRconFET(flujos);
-
-        // Actualiza la celda de TIR en la tabla
-        filas[i].cells[7].innerHTML = tirCalculada.toFixed(4);
-
-        // Añade la lógica para mostrar "APROBADO" o "NO" en la columna correspondiente
-        let aprobado = tirCalculada >= 0 ? "APROBADO" : "NO";
+        filas[i].cells[7].innerHTML = tirCalculada.toFixed(2); // Display TIR with two decimal places
+        let aprobado = tirCalculada >= 30 ? "APROBADO" : "NO";
         filas[i].cells[8].innerHTML = aprobado;
+        // Contar escenarios aprobados y no aprobados
+        if (aprobado === "APROBADO") {
+                escenariosAprobados++;
+            } else {
+                escenariosNoAprobados++;
+            }
+        // Actualizar mensaje de factibilidad
+        let mensajeFactibilidad = document.getElementById("mensaje-factibilidad");
+        if (escenariosAprobados > 0) {
+            mensajeFactibilidad.innerHTML = "Es factible invertir en al menos un escenario.";
+        } else {
+            mensajeFactibilidad.innerHTML = "No es factible invertir en ninguno de los escenarios.";
+        }
+       // Actualizar conclusión general
+       let conclusionGeneral = document.getElementById("conclusion-general");
+        if (escenariosAprobados > escenariosNoAprobados) {
+            conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. En general, es factible invertir.`;
+        } else {
+            conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. En general, no es factible invertir.`;
+        }
     }
-}
+    }
+
 
     function calcularTIRconFET(flujos) {
         let inversionInicial = flujos[0];
