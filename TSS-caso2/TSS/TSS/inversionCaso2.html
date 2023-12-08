@@ -7,9 +7,7 @@
 
     <style>
         body {
-            background-blend-mode: multiply;
-            background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
-                linear-gradient(56deg, #002a4c 76%, #e30613 100%)!important;
+            background:#e4e5de;
             margin: 0; /* Elimina el margen predeterminado del body */
             text-align: center; /* Centra el contenido del body */
 
@@ -43,15 +41,18 @@
         }
 
         h2 {
-            font-size: 24px;
-            color: black;
+            font-size: 25px;
+            color: #181c29;
             text-align: center; /* Centra el texto */
         }
-        p{
-            color:black;
-            text-align: center; /* Centra el texto */
-            font-size: 18px; /* Tamaño de letra aumentado */
-        }
+        p {
+    color: #181c29;
+    text-align: justify; /* Centra el texto */
+    font-size: 1.5rem;
+    margin-left: 3cm;
+    margin-right: 3cm;
+}
+
         table {
             font-family: Arial, sans-serif;
             border-collapse: collapse;
@@ -61,13 +62,13 @@
 
         th, td {
             border: 1px solid #181c29;
-            color:black;
-            text-align: left;
+            color:#181c29;
             padding: 8px;
         }
 
         th {
             background-color: #181c29;
+            color:white;
         }
 
         /* Estilos específicos para la tabla */
@@ -77,10 +78,14 @@
 
         table.small-table td:nth-child(1) {
             background-color: #002a4c; /* Fondo azul para la primera columna */
+            color:white;
+
         }
 
         table.small-table td:nth-child(2) {
             background-color: #1f8dd6; /* Fondo celeste para la segunda columna */
+            color:white;
+
         }
     </style>
     <title>Simulación de Decisiones sobre Inversiones</title>
@@ -104,11 +109,8 @@
             <td>Flujo neto del periodo t</td>
             <td>N(μ = 30.000, σ = 3.000)</td>
         </tr>
-    </table>
-    <br><br>
-    
-    <p>Si la administración ha establecido que un proyecto de inversión será emprendido si Prob{TIR > TREMA} ≥ 0,90, y la TREMA es de 30%, ¿debería la empresa X aceptar este</p>
-    <p>nuevo proyecto de inversión? Asuma un horizonte de planeación de 5 años y un valor de rescate al término de este tiempo de cero.</p>
+    </table>    
+    <p>Si la administración ha establecido que un proyecto de inversión será emprendido si Prob{TIR > TREMA} ≥ 0,90, y la TREMA es de 30%, ¿debería la empresa X aceptar este nuevo proyecto de inversión? .Asuma un horizonte de planeación de 5 años y un valor de rescate al término de este tiempo de cero.</p>
 </div>
 <h2>Configuración de Simulación</h2>
 <div>
@@ -223,13 +225,55 @@
     }
     
     function generarPDF() {
-    const element = document.getElementById("contenido-pdf");
+        const element = document.getElementById("contenido-pdf");
 
-    // Esperar un breve momento para que las operaciones asíncronas se completen
-    setTimeout(function () {
-        html2pdf(element);
-    }, 500);
-}
+        // Esperar un breve momento para que las operaciones asíncronas se completen
+        setTimeout(function () {
+            const pdfOptions = {
+                margin: 10,
+                filename: 'simulacion_decisiones_inversion.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Agregar estilos específicos para el PDF
+            const pdfStyles = `
+                body {
+                    background-color: #002a4c;
+                }
+
+                p {
+                    color: black;
+                    text-align: center;
+                    font-size: 22px;
+                }
+
+                table {
+                    border: 1px solid #fff;
+                }
+
+                th, td {
+                    color: black;
+                    background-color: #002a4c;
+                    border: 1px solid #181c29;
+                    text-align: left;
+                    padding: 8px;
+                }
+            `;
+
+            // Agregar los estilos al documento antes de generar el PDF
+            const styleElement = document.createElement('style');
+            styleElement.innerHTML = pdfStyles;
+            document.head.appendChild(styleElement);
+
+            // Generar el PDF
+            html2pdf(element, pdfOptions);
+
+            // Eliminar los estilos después de generar el PDF para no afectar la presentación en pantalla
+            styleElement.parentNode.removeChild(styleElement);
+        }, 500);
+    }
      //boton para ir atras
     function goBack() {
         history.back();
