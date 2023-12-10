@@ -160,7 +160,7 @@
         <th>Flujo de Caja Neto del Año 4</th>
         <th>Flujo de Caja Neto del Año 5</th>
         <th>TIR</th>
-        <th>APROBADO</th>
+        <th>Conclusion</th>
     </tr>
     
 </table>
@@ -198,13 +198,19 @@
         console.log("Número de Escenarios:", numEscenarios);
 
         for (let i = 1; i <= numEscenarios; i++) {
-            let inversionInicial = generarNumeroAleatorio(mediaInversion, desviacionInversion);
-            let flujoAnual1 = generarNumeroAleatorio(mediaFlujo, desviacionFlujo);
-            let flujoAnual2 = generarNumeroAleatorio(mediaFlujo, desviacionFlujo);
-            let flujoAnual3 = generarNumeroAleatorio(mediaFlujo, desviacionFlujo);
-            let flujoAnual4 = generarNumeroAleatorio(mediaFlujo, desviacionFlujo);
-            let flujoAnual5 = generarNumeroAleatorio(mediaFlujo, desviacionFlujo);
-
+        let inversionInicial = generarDistribucionTriangular(mediaInversion, mediaInversion - desviacionInversion, mediaInversion + desviacionInversion);
+        let flujoAnual1 = generarDistribucionTriangular(mediaFlujo, mediaFlujo - desviacionFlujo, mediaFlujo + desviacionFlujo);
+        let flujoAnual2 = generarDistribucionTriangular(mediaFlujo, mediaFlujo - desviacionFlujo, mediaFlujo + desviacionFlujo);
+        let flujoAnual3 = generarDistribucionTriangular(mediaFlujo, mediaFlujo - desviacionFlujo, mediaFlujo + desviacionFlujo);
+        let flujoAnual4 = generarDistribucionTriangular(mediaFlujo, mediaFlujo - desviacionFlujo, mediaFlujo + desviacionFlujo);
+        let flujoAnual5 = generarDistribucionTriangular(mediaFlujo, mediaFlujo - desviacionFlujo, mediaFlujo + desviacionFlujo);
+             // Redondear valores a dos decimales
+        inversionInicial = parseFloat(inversionInicial.toFixed(2));
+        flujoAnual1 = parseFloat(flujoAnual1.toFixed(2));
+        flujoAnual2 = parseFloat(flujoAnual2.toFixed(2));
+        flujoAnual3 = parseFloat(flujoAnual3.toFixed(2));
+        flujoAnual4 = parseFloat(flujoAnual4.toFixed(2));
+        flujoAnual5 = parseFloat(flujoAnual5.toFixed(2));
             let fila = `<tr>
                             <td>${i}</td>
                             <td>${inversionInicial}</td>
@@ -220,14 +226,22 @@
         }
     }
 
-    function generarNumeroAleatorio(media, desviacion) {
-        return (Math.random() * desviacion * 2 + media - desviacion).toFixed(2);
+    function generarDistribucionTriangular(media, min, max) {
+        const u = Math.random();
+        const c = (media - min) / (max - min);
+
+        if (u <= c) {
+            return min + Math.sqrt(u * (max - min) * (media - min));
+        } else {
+            return max - Math.sqrt((1 - u) * (max - min) * (max - media));
+        }
     }
 
     function calcularTIR() {
-        let escenariosAprobados = 0;
-        let escenariosNoAprobados = 0;
+    let escenariosAprobados = 0;
+    let escenariosNoAprobados = 0;
     let filas = document.getElementById("tablaSimulacion").rows;
+    
     for (let i = 1; i < filas.length; i++) {
         let flujos = [
             parseFloat(filas[i].cells[1].innerHTML),
@@ -237,15 +251,20 @@
             parseFloat(filas[i].cells[5].innerHTML),
         ];
         let tirCalculada = calcularTIRconFET(flujos);
-        filas[i].cells[7].innerHTML = tirCalculada.toFixed(2); // Display TIR with two decimal places
+        
+        // Mostrar TIR en formato de porcentaje (%)
+        filas[i].cells[7].innerHTML = tirCalculada.toFixed(2) + "%";
+
         let aprobado = tirCalculada >= 30 ? "APROBADO" : "NO";
         filas[i].cells[8].innerHTML = aprobado;
+        
         // Contar escenarios aprobados y no aprobados
         if (aprobado === "APROBADO") {
-                escenariosAprobados++;
-            } else {
-                escenariosNoAprobados++;
-            }
+            escenariosAprobados++;
+        } else {
+            escenariosNoAprobados++;
+        }
+
         // Actualizar mensaje de factibilidad
         let mensajeFactibilidad = document.getElementById("mensaje-factibilidad");
         if (escenariosAprobados > 0) {
@@ -253,15 +272,17 @@
         } else {
             mensajeFactibilidad.innerHTML = "No es factible invertir en ninguno de los escenarios.";
         }
-       // Actualizar conclusión general
-       let conclusionGeneral = document.getElementById("conclusion-general");
+
+        // Actualizar conclusión general
+        let conclusionGeneral = document.getElementById("conclusion-general");
         if (escenariosAprobados > escenariosNoAprobados) {
             conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. En general, es factible invertir.`;
         } else {
             conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. En general, no es factible invertir.`;
         }
     }
-    }
+}
+
 
 
     function calcularTIRconFET(flujos) {
@@ -362,8 +383,6 @@ function obtenerDatosTabla() {
 
     return data;
 }
-
-
 
 </script>
 </body>
