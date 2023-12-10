@@ -6,6 +6,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
     <style>
         body {
             background-blend-mode: multiply;
@@ -52,8 +55,8 @@
          color: #181c29;
          text-align: justify; /* Centra el texto */
            font-size: 1.3rem;
-         margin-left: 3cm;
-         margin-right: 3cm;
+         margin-left: 1,5cm;
+         margin-right: 1,5cm;
         }
 
         table {
@@ -90,6 +93,18 @@
             background-color: #1f8dd6; /* Fondo celeste para la segunda columna */
             color:white;
 
+        }
+        .formula-container {
+            background-color: #cd6a;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .math {
+            color:#002a4c;
+            
         }
     </style>
     <title>Simulación de Decisiones sobre Inversiones</title>
@@ -138,12 +153,43 @@
 <button onclick="toggleExplicacion()" style="margin-bottom: 10px; padding: 8px 16px; background-color: #002a4c; color: white; border: none; cursor: pointer;">Explicación de cálculos</button>
 
 <!-- Área oculta para la explicación de cálculos -->
-<div id="explicacion-calculos" style="display: none; background-color: #f5f5f5; padding: 10px; border-radius: 5px;">
+<div id="explicacion-calculos" style="display: none; background-color: #f5f5f5; padding: 10px; border-radius: 5px; font-size: 0.9rem;">
     <h3>Explicación de Cálculos</h3>
     <h3 style="color: #333;">Escenario</h3>
-    <p>Se refiere a una instancia específica de la simulación de decisiones sobre inversiones. Cada vez que se ejecuta la función addEscenarios(), se generan varios escenarios simulados para evaluar el rendimiento financiero del proyecto de inversión en diferentes condiciones.</p>
-    <!-- Agrega más explicaciones según sea necesario -->
+    <p style="font-size: 0.85rem;">Se refiere a una instancia específica de la simulación de decisiones sobre inversiones. Cada vez que se ejecuta la función addEscenarios(), se generan varios escenarios simulados para evaluar el rendimiento financiero del proyecto de inversión en diferentes condiciones.</p>
+    <h3 style="color: #333;">Inversión Inicial</h3>
+    <p style="font-size: 0.85rem;">La lógica detrás de la variable inversionInicial es simular una cantidad aleatoria de inversión inicial para un escenario dado. Se utiliza una distribución triangular, donde el valor más probable es la mediaInversion, pero también se permiten valores que varían dentro del rango definido por "mediaInversion - desviacionInversion" y "mediaInversion + desviacionInversion". Esta variabilidad refleja la incertidumbre asociada con la inversión inicial en la simulación, y la distribución triangular modela diferentes escenarios posibles.</p>
+    <li><strong>media Inversion(μ)=</strong>100,000 Bs (valor medio de la inversión inicial)</li>
+    <li><strong>desviacion Inversion(σ)=</strong>5,000 Bs (desviación estándar)</li>
+    <p style="font-size: 0.85rem;">La fórmula para generar una distribución triangular es:</p>
+    <div class="formula-container">
+        <div class="math">
+            inversionInicial=generarDistribucionTriangular(mediaInversion,mediaInversion−desviacionInversion,mediaInversion+desviacionInversion)
+        </div>
+    </div>
+    <p style="font-size: 0.85rem;">Ahora, apliquemos esta fórmula:</p>
+    <div class="formula-container">
+        <div class="math">
+inversionInicial=generarDistribucionTriangular(100000,(100000-5000),(100000+5000))
+<div></div>
+inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
+
+        </div>
+    </div>
+    <p style="font-size: 0.85rem;"> </p>
+    <h3 style="color: #333;">Flujo de Caja Neto del Año 1-5 "generarDistribucionTriangular(mediaFlujo, mediaFlujo - desviacionFlujo, mediaFlujo + desviacionFlujo)"</h3>
+    <p style="font-size: 0.85rem;">La lógica detrás de esto es simular la variabilidad en los flujos anuales de ingresos netos después de impuestos para un escenario específico de inversión. La función generarDistribucionTriangular se basa en una distribución triangular, lo que significa que el valor medio (mediaFlujo) tiene una probabilidad más alta de ser seleccionado, y los valores se distribuyen de manera triangular hacia los extremos del rango definido por "mediaFlujo - desviacionFlujo" y "mediaFlujo + desviacionFlujo".</p>
+    <img src="imagenes/fluo1-5.png"> <!-- Reemplaza "ruta_del_logo.png" con la ruta real de tu logo -->
+    <h3 style="color: #333;">TIR</h3>
+    <p style="font-size: 0.85rem;">1.-Generación de Flujos de Efectivo: Se obtienen los flujos de efectivo netos de cada escenario de inversión. Estos flujos representan las ganancias o pérdidas asociadas al proyecto en cada periodo.</p>
+    <p style="font-size: 0.85rem;">2.-Cálculo del Factor de Recuperación Acumulado: Se calcula un factor de recuperación acumulado utilizando los flujos de efectivo netos. Este factor refleja cómo se recupera la inversión a lo largo del tiempo.</p>
+    <p style="font-size: 0.85rem;">3.-Cálculo de la TIR con FET (Factor de Recuperación Acumulado): La TIR se calcula dividiendo la inversión inicial por el factor de recuperación acumulado y restando 1. El resultado se multiplica por 100 para obtener el valor en porcentaje.</p>
+    <h3 style="color: #333;">Conclusión</h3>
+    <p style="font-size: 0.85rem;">Evaluación de la Aceptación del Proyecto: Se compara la TIR calculada con un umbral predefinido (en este caso, 30%). Si la TIR es mayor o igual al umbral, se considera que el proyecto es "APROBADO"; de lo contrario, se etiqueta como "NO".</p>
+    <h3 style="color: #333;">Conclusión Final</h3>
+    <p style="font-size: 0.85rem;">La conclusión general se basa en comparar el número total de escenarios aprobados con los no aprobados.</p>
 </div>
+
 <!-- Área para mostrar el mensaje de factibilidad de inversión -->
 <div id="mensaje-factibilidad" style="margin-top: 20px; color: white;"></div>
 <!-- Área para mostrar la conclusión general -->
@@ -264,27 +310,18 @@
         } else {
             escenariosNoAprobados++;
         }
-
-        // Actualizar mensaje de factibilidad
-        let mensajeFactibilidad = document.getElementById("mensaje-factibilidad");
-        if (escenariosAprobados > 0) {
-            mensajeFactibilidad.innerHTML = "Es factible invertir en al menos un escenario.";
-        } else {
-            mensajeFactibilidad.innerHTML = "No es factible invertir en ninguno de los escenarios.";
-        }
-
-        // Actualizar conclusión general
         let conclusionGeneral = document.getElementById("conclusion-general");
-        if (escenariosAprobados > escenariosNoAprobados) {
-            conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. En general, es factible invertir.`;
-        } else {
-            conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. En general, no es factible invertir.`;
-        }
-    }
+
+if (escenariosAprobados > escenariosNoAprobados) {
+    conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. En términos generales, la viabilidad de la inversión se vislumbra positiva y prometedora.`;
+} else if (escenariosAprobados < escenariosNoAprobados) {
+    conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. En términos generales, no se percibe como una opción viable para invertir.`;
+} else {
+    conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. No se puede tomar una decisión clara sobre la viabilidad de la inversión debido a la igualdad en el número de escenarios aprobados y no aprobados.`;
 }
 
-
-
+    }
+}
     function calcularTIRconFET(flujos) {
         let inversionInicial = flujos[0];
         let flujosNetos = flujos.slice(1);
