@@ -109,6 +109,7 @@
         <li><a href="comp_inicio/AcercaDeNosotros.html">Acerca de Nosotros</a></li>
         <li><a href="comp_inicio/politicaDePrivacidad.html">Politica de Privacidad</a></li>
         <li><a href="comp_inicio/Ayuda.html">Centro de Ayuda</a></li>
+
     </ul>
     <a class="header-btn" href="index.php">Atrás</a>
 </div>
@@ -126,7 +127,7 @@
         <!-- Tarjeta "Simular" -->
         <div class="col">
             <div class="card">
-                <a href="listaformulario.php">
+            <a href="lista_formularios.php">
                     <h2>Formulario Para Simular</h2>
                     <img src="imagenes/simulacion.jpg" alt="Imagen Simular">
                 </a>
