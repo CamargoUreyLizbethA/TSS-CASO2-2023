@@ -3,6 +3,7 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos/casoEstudio.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -10,113 +11,6 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
   </script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <style>
-        body {
-            background-blend-mode: multiply;
-            background-image: url(https://www.umss.edu.bo/wp-content/uploads/2021/11/5650360.png),
-                linear-gradient(56deg, #002a4c 76%, #e30613 100%)!important;
-            margin: 0; /* Elimina el margen predeterminado del body */
-            text-align: center; /* Centra el contenido del body */
-
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px; /* Ajusta el espacio interno según sea necesario */
-            background-color: #181c29; /* Cambia el color de fondo del encabezado */
-        }
-
-        header img {
-            width: 50px; /* Ajusta el tamaño del logo según sea necesario */
-            margin-right: 10px; /* Ajusta el espacio a la derecha del logo según sea necesario */
-        }
-
-        header h2 {
-            font-size: 24px;
-            color: white;
-            margin: 0; /* Elimina el margen predeterminado del h2 */
-        }
-
-        button {
-            background-color: #181c29;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        h2 {
-            font-size: 25px;
-            color: #181c29;
-            text-align: center; /* Centra el texto */
-        }
-        p {
-         color: #181c29;
-         text-align: justify; /* Centra el texto */
-           font-size: 1.3rem;
-         margin-left: 1,5cm;
-         margin-right: 1,5cm;
-        }
-
-        table {
-            font-family: Arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%; /* Ajusta el ancho de la tabla según sea necesario */
-            margin: 20px auto; /* Centra la tabla horizontalmente y agrega espacio arriba/abajo */
-        }
-
-        th, td {
-            border: 1px solid #181c29;
-            color:#181c29;
-            padding: 8px;
-            background-color: #f5f5f5;
-        }
-
-        th {
-            background-color: #181c29;
-            color:white;
-        }
-
-        /* Estilos específicos para la tabla */
-        table.small-table {
-            width: 40%; /* Ajusta el ancho de la tabla específica según sea necesario */
-        }
-
-        table.small-table td:nth-child(1) {
-            background-color: #002a4c; /* Fondo azul para la primera columna */
-            color:white;
-
-        }
-
-        table.small-table td:nth-child(2) {
-            background-color: #1f8dd6; /* Fondo celeste para la segunda columna */
-            color:white;
-
-        }
-        .formula-container {
-            background-color: #cd6a;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin: 10px;
-        }
-
-        .math {
-            color:#002a4c;
-            
-        }
-        #graficoTIR {
-        width: 80%;
-        max-width: 400px; /* Ajusta el ancho máximo según tus necesidades */
-        margin: 20px auto;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-}
-
-    </style>
     <title>Simulación de Decisiones sobre Inversiones</title>
 </head>
 <body>
@@ -129,7 +23,6 @@
 <div>
     <!-- Botón para mostrar/ocultar la explicación de cálculos -->
 <button onclick="toggleDescripcion()" style="margin-bottom: 10px; padding: 8px 16px; background-color: #002a4c; color: white; border: none; cursor: pointer;">Descripcion</button>
-
 <!-- Área oculta para la explicación de cálculos -->
 <div id="explicacion-descripcion" style="display: none; background-color: #f5f5f5; padding: 10px; border-radius: 5px;">
     <h2>Caso de Estudio 2: Decisiones sobre Inversiones</h2>
@@ -155,8 +48,8 @@
 <button onclick="addEscenarios()">Añadir Escenarios</button>
 <button onclick="calcularTIR()">Calcular TIR</button>
 <tr></tr>
-<button onclick="generarPDF()" style="background-color: #a52019; color: white; border: none; padding: 8px; cursor: pointer;">Generar PDF <span>&#128462;</span></button>
-<button onclick="generarExcel()" style="background-color: #008f39; color: white; border: none; padding: 8px; cursor: pointer;">Generar Excel <i class="fas fa-file-excel"></i></button>
+<button onclick="generarPDF()" class="boton-pdf">Generar PDF <span>&#128462;</span></button>
+<button onclick="generarExcel()" class="boton-excel">Generar Excel <i class="fas fa-file-excel"></i></button>
 </div>
 <h2>Simulación de Decisiones sobre Inversiones</h2>
 <!-- Botón para mostrar/ocultar la explicación de cálculos -->
@@ -186,22 +79,20 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
 
         </div>
     </div>
-    <p style="font-size: 0.85rem;"> </p>
-    <h3 style="color: #333;">Flujo de Caja Neto del Año 1-5 "generarDistribucionTriangular(mediaFlujo, mediaFlujo - desviacionFlujo, mediaFlujo + desviacionFlujo)"</h3>
-    <p style="font-size: 0.85rem;">La lógica detrás de esto es simular la variabilidad en los flujos anuales de ingresos netos después de impuestos para un escenario específico de inversión. La función generarDistribucionTriangular se basa en una distribución triangular, lo que significa que el valor medio (mediaFlujo) tiene una probabilidad más alta de ser seleccionado, y los valores se distribuyen de manera triangular hacia los extremos del rango definido por "mediaFlujo - desviacionFlujo" y "mediaFlujo + desviacionFlujo".</p>
-    <img src="imagenes/fluo1-5.png"> <!-- Reemplaza "ruta_del_logo.png" con la ruta real de tu logo -->
-    <h3 style="color: #333;">TIR</h3>
-    <p style="font-size: 0.85rem;">1.-Generación de Flujos de Efectivo: Se obtienen los flujos de efectivo netos de cada escenario de inversión. Estos flujos representan las ganancias o pérdidas asociadas al proyecto en cada periodo.</p>
-    <p style="font-size: 0.85rem;">2.-Cálculo del Factor de Recuperación Acumulado: Se calcula un factor de recuperación acumulado utilizando los flujos de efectivo netos. Este factor refleja cómo se recupera la inversión a lo largo del tiempo.</p>
-    <p style="font-size: 0.85rem;">3.-Cálculo de la TIR con FET (Factor de Recuperación Acumulado): La TIR se calcula dividiendo la inversión inicial por el factor de recuperación acumulado y restando 1. El resultado se multiplica por 100 para obtener el valor en porcentaje.</p>
-    <h3 style="color: #333;">Conclusión</h3>
-    <p style="font-size: 0.85rem;">Evaluación de la Aceptación del Proyecto: Se compara la TIR calculada con un umbral predefinido (en este caso, 30%). Si la TIR es mayor o igual al umbral, se considera que el proyecto es "APROBADO"; de lo contrario, se etiqueta como "NO".</p>
-    <h3 style="color: #333;">Conclusión Final</h3>
-    <p style="font-size: 0.85rem;">La conclusión general se basa en comparar el número total de escenarios aprobados con los no aprobados.</p>
+    <p class="parrafo-pequeno"></p>
+    <h3 class="titulo-flujo">Flujo de Caja Neto del Año 1-5 "generarDistribucionTriangular(mediaFlujo, mediaFlujo - desviacionFlujo, mediaFlujo + desviacionFlujo)"</h3>
+    <p class="parrafo-pequeno">La lógica detrás de esto es simular la variabilidad en los flujos anuales de ingresos netos después de impuestos para un escenario específico de inversión. La función generarDistribucionTriangular se basa en una distribución triangular, lo que significa que el valor medio (mediaFlujo) tiene una probabilidad más alta de ser seleccionado, y los valores se distribuyen de manera triangular hacia los extremos del rango definido por "mediaFlujo - desviacionFlujo" y "mediaFlujo + desviacionFlujo".</p>
+    <img src="imagenes/fluo1-5.png">
+    <h3 class="titulo-flujo">TIR</h3>
+    <p class="parrafo-pequeno">1.-Generación de Flujos de Efectivo: Se obtienen los flujos de efectivo netos de cada escenario de inversión. Estos flujos representan las ganancias o pérdidas asociadas al proyecto en cada periodo.</p>
+    <p class="parrafo-pequeno">2.-Cálculo del Factor de Recuperación Acumulado: Se calcula un factor de recuperación acumulado utilizando los flujos de efectivo netos. Este factor refleja cómo se recupera la inversión a lo largo del tiempo.</p>
+    <p class="parrafo-pequeno">3.-Cálculo de la TIR con FET (Factor de Recuperación Acumulado): La TIR se calcula dividiendo la inversión inicial por el factor de recuperación acumulado y restando 1. El resultado se multiplica por 100 para obtener el valor en porcentaje.</p>
+    <h3 class="titulo-flujo">Conclusión</h3>
+    <p class="parrafo-pequeno">Evaluación de la Aceptación del Proyecto: Se compara la TIR calculada con un umbral predefinido (en este caso, 30%). Si la TIR es mayor o igual al umbral, se considera que el proyecto es "APROBADO"; de lo contrario, se etiqueta como "NO".</p>
+    <h3 class="titulo-flujo">Conclusión Final</h3>
+    <p class="parrafo-pequeno">La conclusión general se basa en comparar el número total de escenarios aprobados con los no aprobados.</p>
 </div>
 
-<!-- Área para mostrar el mensaje de factibilidad de inversión -->
-<div id="mensaje-factibilidad" style="margin-top: 20px; color: white;"></div>
 <!-- Área para mostrar la conclusión general -->
 <div id="conclusion-general" style="margin-top: 20px; background-color: #002a4c; color: white; padding: 10px; border-radius: 5px;">
 </div>
@@ -243,12 +134,10 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
         mediaInversion = parseFloat(prompt("Ingrese la media de la inversión inicial:"));
         desviacionInversion = parseFloat(prompt("Ingrese la desviación estándar de la inversión inicial:"));
     }
-
     function setFlujoNeto() {
         mediaFlujo = parseFloat(prompt("Ingrese la media del flujo neto del periodo t:"));
         desviacionFlujo = parseFloat(prompt("Ingrese la desviación estándar del flujo neto del periodo t:"));
     }
-
     function addEscenarios() {
         let numEscenarios = prompt("Ingrese el número de escenarios a simular:");
         console.log("Número de Escenarios:", numEscenarios);
@@ -281,7 +170,6 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
             document.getElementById("tablaSimulacion").insertAdjacentHTML('beforeend', fila);
         }
     }
-
     function generarDistribucionTriangular(media, min, max) {
         const u = Math.random();
         const c = (media - min) / (max - min);
@@ -292,13 +180,11 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
             return max - Math.sqrt((1 - u) * (max - min) * (max - media));
         }
     }
-
     function calcularTIR() {
     let escenariosAprobados = 0;
     let escenariosNoAprobados = 0;
     let filas = document.getElementById("tablaSimulacion").rows;
     tirArray = []; // Initialize tirArray
-
     for (let i = 1; i < filas.length; i++) {
         let flujos = [
             parseFloat(filas[i].cells[1].innerHTML),
@@ -307,22 +193,17 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
             parseFloat(filas[i].cells[4].innerHTML),
             parseFloat(filas[i].cells[5].innerHTML),
         ];
-
         let tirCalculada = calcularTIRconFET(flujos);
         filas[i].cells[7].innerHTML = tirCalculada.toFixed(2) + "%";
         tirArray.push(tirCalculada); // Add TIR value to tirArray
-
         let aprobado = tirCalculada >= 30 ? "APROBADO" : "NO";
         filas[i].cells[8].innerHTML = aprobado;
-
         if (aprobado === "APROBADO") {
             escenariosAprobados++;
         } else {
             escenariosNoAprobados++;
         }
-
         let conclusionGeneral = document.getElementById("conclusion-general");
-
         if (escenariosAprobados > escenariosNoAprobados) {
             conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. En términos generales, la viabilidad de la inversión se vislumbra positiva y prometedora.`;
         } else if (escenariosAprobados < escenariosNoAprobados) {
@@ -331,10 +212,8 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
             conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. No se puede tomar una decisión clara sobre la viabilidad de la inversión debido a la igualdad en el número de escenarios aprobados y no aprobados.`;
         }
     }
-
     generarGrafico(); // Call generarGrafico after tirArray is populated
-}
-
+    }
     function calcularTIRconFET(flujos) {
         let inversionInicial = flujos[0];
         let flujosNetos = flujos.slice(1);
@@ -345,13 +224,10 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
             acumulado += flujosNetos[i];
             factorRecuperacion += acumulado / Math.pow(1 + i, 2);
         }
-
         return (inversionInicial / factorRecuperacion - 1) * 100;
-    }
-    
+    }    
     function generarPDF() {
         const element = document.getElementById("contenido-pdf");
-
         // Esperar un breve momento para que las operaciones asíncronas se completen
         setTimeout(function () {
             const pdfOptions = {
@@ -399,43 +275,14 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
             styleElement.parentNode.removeChild(styleElement);
         }, 500);
     }
-     //boton para ir atras
-    function goBack() {
-        history.back();
-    }
 
     function generarExcel() {
     const data = obtenerDatosTabla(); // Obtener los datos de la tabla
     const ws = XLSX.utils.json_to_sheet(data); // Convertir los datos a una hoja de cálculo
     const wb = XLSX.utils.book_new(); // Crear un nuevo libro de trabajo
     XLSX.utils.book_append_sheet(wb, ws, "SimulacionDecisiones"); // Agregar la hoja de cálculo al libro
-
-    // Agregar el contenido HTML al libro
-    const htmlContent = `
-        <html>
-        <head>
-            <title>Simulación de Decisiones sobre Inversiones</title>
-        </head>
-        <body>
-            ${document.getElementById("contenido-pdf").outerHTML}
-        </body>
-        </html>
-    `;
-
-    const blob = new Blob([htmlContent], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-    const dataUrl = URL.createObjectURL(blob);
-
-    // Crear un enlace y simular un clic para descargar el archivo
-    const a = document.createElement("a");
-    a.href = dataUrl;
-    a.download = 'simulacion_decisiones_inversion.xlsx';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(dataUrl);
+    XLSX.writeFile(wb, 'Excel_Decisiones_inversion.xlsx'); // Descargar el archivo Excel
 }
-
-
 
 function obtenerDatosTabla() {
     const tabla = document.getElementById("tablaSimulacion");
@@ -479,6 +326,16 @@ function generarGrafico() {
             }]
         },
         options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Distribución acumulada de la tasa interna de rendimiento',
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    }
+                }
+            },
             responsive: false, // Desactivar la respuesta automática al tamaño de la ventana
             maintainAspectRatio: false,
             scales: {
@@ -490,7 +347,10 @@ function generarGrafico() {
         }
     });
 }
-
+ //boton para ir atras
+ function goBack() {
+        history.back();
+    }
 </script>
 </body>
 </html>
