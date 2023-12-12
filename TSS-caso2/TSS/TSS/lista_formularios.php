@@ -66,6 +66,26 @@ $conn->close();
         .icono-registrar {
             margin-left: 5px; /* Ajusta el espacio entre el texto y el ícono según sea necesario */
         }
+   /* Agrega estilos para la tabla */
+table {
+    margin: auto; /* Centra la tabla horizontalmente */
+    background-color: #181c29; /* Color de fondo azul para la tabla */
+    color: white; /* Color de texto blanco */
+    border-collapse: collapse;
+    width: 80%; /* Ajusta el ancho de la tabla según sea necesario */
+}
+
+th, td {
+    border: 1px solid white; /* Borde blanco */
+    padding: 8px; /* Ajusta el espacio interno según sea necesario */
+    text-align: left; /* Alineación del texto a la izquierda */
+}
+
+/* Estilos para filas restantes */
+tr:not(:first-child) {
+    background-color: #002a4c; /* Color de fondo más claro para las filas restantes */
+}
+
     </style>
 </head>
 <body>

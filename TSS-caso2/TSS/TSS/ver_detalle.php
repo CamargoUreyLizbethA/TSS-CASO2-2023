@@ -3,14 +3,11 @@ include 'conexion.php';
 
 // Obtener el ID del formulario desde la URL
 $formulario_id = $_GET['id'];
-
 // Consulta SQL para obtener los detalles del formulario específico
 $sql_detalle = "SELECT * FROM formulario WHERE id = $formulario_id";
 $result_detalle = $conn->query($sql_detalle);
-
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -211,7 +208,7 @@ $aprobado = $tirCalculada >= 30 ? "APROBADO" : "NO";
     }
     ?>
    <script>
-   
+
     function generarPDF() {
         const element = document.getElementById("contenido-pdf");
 
