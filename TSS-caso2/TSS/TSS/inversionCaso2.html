@@ -7,10 +7,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script type="text/javascript" async
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Es para generar otras funcionalidades extras -->
+    <script src="scriptsGenerador/main.js"></script>
+    <script src="scriptsGenerador/calculos.js"></script>
+    <script src="scriptsGenerador/grafico.js"></script>
+    <script src="scriptsGenerador/excel.js"></script>
+    <script src="scriptsGenerador/pdf.js"></script>
     <title>Simulación de Decisiones sobre Inversiones</title>
 </head>
 <body>
@@ -38,8 +42,7 @@
         </tr>
     </table>    
     <p>Si la administración ha establecido que un proyecto de inversión será emprendido si Prob{TIR > TREMA} ≥ 0,90, y la TREMA es de 30%, ¿debería la empresa X aceptar este nuevo proyecto de inversión? .Asuma un horizonte de planeación de 5 años y un valor de rescate al término de este tiempo de cero.</p>
-</div>
-    
+</div>  
 </div>
 <h2>Configuración de Simulación</h2>
 <div>
@@ -54,7 +57,6 @@
 <h2>Simulación de Decisiones sobre Inversiones</h2>
 <!-- Botón para mostrar/ocultar la explicación de cálculos -->
 <button onclick="toggleExplicacion()" style="margin-bottom: 10px; padding: 8px 16px; background-color: #002a4c; color: white; border: none; cursor: pointer;">Explicación de cálculos</button>
-
 <!-- Área oculta para la explicación de cálculos -->
 <div id="explicacion-calculos" style="display: none; background-color: #f5f5f5; padding: 10px; border-radius: 5px; font-size: 0.9rem;">
     <h3>Explicación de Cálculos</h3>
@@ -225,128 +227,7 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
             factorRecuperacion += acumulado / Math.pow(1 + i, 2);
         }
         return (inversionInicial / factorRecuperacion - 1) * 100;
-    }    
-    function generarPDF() {
-        const element = document.getElementById("contenido-pdf");
-        // Esperar un breve momento para que las operaciones asíncronas se completen
-        setTimeout(function () {
-            const pdfOptions = {
-                margin: 10,
-                filename: 'simulacion_decisiones_inversion.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            // Agregar estilos específicos para el PDF
-            const pdfStyles = `
-                body {
-                    background-color: #002a4c;
-                }
-
-                p {
-                    color: black;
-                    text-align: center;
-                    font-size: 22px;
-                }
-
-                table {
-                    border: 1px solid #fff;
-                }
-
-                th, td {
-                    color: black;
-                    background-color: #002a4c;
-                    border: 1px solid #181c29;
-                    text-align: left;
-                    padding: 8px;
-                }
-            `;
-
-            // Agregar los estilos al documento antes de generar el PDF
-            const styleElement = document.createElement('style');
-            styleElement.innerHTML = pdfStyles;
-            document.head.appendChild(styleElement);
-
-            // Generar el PDF
-            html2pdf(element, pdfOptions);
-
-            // Eliminar los estilos después de generar el PDF para no afectar la presentación en pantalla
-            styleElement.parentNode.removeChild(styleElement);
-        }, 500);
-    }
-
-    function generarExcel() {
-    const data = obtenerDatosTabla(); // Obtener los datos de la tabla
-    const ws = XLSX.utils.json_to_sheet(data); // Convertir los datos a una hoja de cálculo
-    const wb = XLSX.utils.book_new(); // Crear un nuevo libro de trabajo
-    XLSX.utils.book_append_sheet(wb, ws, "SimulacionDecisiones"); // Agregar la hoja de cálculo al libro
-    XLSX.writeFile(wb, 'Excel_Decisiones_inversion.xlsx'); // Descargar el archivo Excel
-}
-
-function obtenerDatosTabla() {
-    const tabla = document.getElementById("tablaSimulacion");
-    const data = [];
-
-    for (let i = 1; i < tabla.rows.length; i++) {
-        const rowData = {
-            "Escenario": tabla.rows[i].cells[0].textContent,
-            "Inversión Inicial": tabla.rows[i].cells[1].textContent,
-            "Flujo de Caja Neto del Año 1": tabla.rows[i].cells[2].textContent,
-            "Flujo de Caja Neto del Año 2": tabla.rows[i].cells[3].textContent,
-            "Flujo de Caja Neto del Año 3": tabla.rows[i].cells[4].textContent,
-            "Flujo de Caja Neto del Año 4": tabla.rows[i].cells[5].textContent,
-            "Flujo de Caja Neto del Año 5": tabla.rows[i].cells[6].textContent,
-            "TIR": tabla.rows[i].cells[7].textContent,
-            "APROBADO": tabla.rows[i].cells[8].textContent,
-        };
-        data.push(rowData);
-    }
-
-    return data;
-}
-function generarGrafico() {
-    // Crear un canvas con el tamaño deseado en píxeles
-    const canvas = document.createElement("canvas");
-    canvas.id = "graficoTIR";
-    canvas.width = 354; // Aproximadamente 5 cm en píxeles (1 cm = 28.35 píxeles)
-    canvas.height = 354; // Aproximadamente 5 cm en píxeles (1 cm = 28.35 píxeles)
-    document.body.appendChild(canvas);
-
-    // Crear el gráfico en el canvas
-    new Chart(canvas, {
-        type: 'bar',
-        data: {
-            labels: Array.from({ length: tirArray.length }, (_, i) => `Escenario ${i + 1}`),
-            datasets: [{
-                label: 'TIR',
-                backgroundColor: '#1f8dd6',
-                borderColor: '#002a4c',
-                data: tirArray,
-            }]
-        },
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Distribución acumulada de la tasa interna de rendimiento',
-                    font: {
-                        size: 16,
-                        weight: 'bold'
-                    }
-                }
-            },
-            responsive: false, // Desactivar la respuesta automática al tamaño de la ventana
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 100, // Ajusta el rango del eje y según tus necesidades
-                }
-            }
-        }
-    });
-}
+    }      
  //boton para ir atras
  function goBack() {
         history.back();
