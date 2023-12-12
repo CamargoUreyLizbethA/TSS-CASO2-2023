@@ -100,40 +100,55 @@ $conn->close();
         }
         echo "</table>";
         echo "</div>";
-
+        
         // Segunda tabla para escenarios, inversión inicial y flujo neto
         echo "<div class='tabla'>";
         echo "<h3>Simulación de Escenarios de Inversión</h3>";
         echo "<table>";
-        echo "<tr><th>Escenario</th><th>Inversión Inicial</th><th>Flujo Neto del Año</th></tr>";
+        echo "<tr><th>Escenario</th><th>Inversión Inicial</th><th>Flujo de Caja Neto del Año 1</th><th>Flujo de Caja Neto del Año 2</th><th>Flujo de Caja Neto del Año 3</th><th>Flujo de Caja Neto del Año 4</th><th>Flujo de Caja Neto del Año 5</th><th>TIR</th><th>Conclusion</th></tr>";
 
         // Obtener datos necesarios del formulario
         $mediaI = $row_detalle["mediaI"];
         $desviacionEI = $row_detalle["desviacionEI"];
         $mediaF = $row_detalle["mediaF"];
         $desviacionEF = $row_detalle["desviacionEF"];
-        $plazoInversion = $row_detalle["plazoInversion"];
+        $numEscenarios = $row_detalle["numEscenarios"];
 
         
-        // Simular escenarios
-        for ($escenario = 1; $escenario <= $EscenarioSimular; $escenario++) {
-            // Calcular inversión inicial
-            $inversionInicial = calcularDistribucionTriangular($mediaI, $desviacionEI);
+        for ($i = 1; $i <= $numEscenarios; $i++) {
+            $inversionInicial = calcularDistribucionTriangular($mediaI, $mediaI - $desviacionEI, $mediaI + $desviacionEI);
+            $flujoAnual1 = calcularDistribucionTriangular($mediaF, $mediaF - $desviacionEF, $mediaF + $desviacionEF);
+    $flujoAnual2 = calcularDistribucionTriangular($mediaF, $mediaF - $desviacionEF, $mediaF + $desviacionEF);
+    $flujoAnual3 = calcularDistribucionTriangular($mediaF, $mediaF - $desviacionEF, $mediaF + $desviacionEF);
+    $flujoAnual4 = calcularDistribucionTriangular($mediaF, $mediaF - $desviacionEF, $mediaF + $desviacionEF);
+    $flujoAnual5 = calcularDistribucionTriangular($mediaF, $mediaF - $desviacionEF, $mediaF + $desviacionEF);
+    // Cálculo del TIR y la conclusión
+$flujos = array($inversionInicial, $flujoAnual1, /* ... */);
+$tirCalculada = calcularTIRconFET($flujos);
+$aprobado = $tirCalculada >= 30 ? "APROBADO" : "NO";
+    // Redondear valores a dos decimales
+    $inversionInicial = round($inversionInicial, 2);
+    $flujoAnual1 = round($flujoAnual1, 2);
+    $flujoAnual2 = round($flujoAnual2, 2);
+    $flujoAnual3 = round($flujoAnual3, 2);
+    $flujoAnual4 = round($flujoAnual4, 2);
+    $flujoAnual5 = round($flujoAnual5, 2);
+    $tirCalculada = round($tirCalculada, 2);
 
-            // Mostrar datos en la tabla
-            echo "<tr>";
-            echo "<td>$escenario</td>";
-            echo "<td>$inversionInicial</td>";
+    // Imprimir la fila con todos los resultados
+    echo "<tr>
+    <td>$i</td>
+    <td>$inversionInicial</td>
+    <td>$flujoAnual1</td>
+    <td>$flujoAnual2</td>
+    <td>$flujoAnual3</td>
+    <td>$flujoAnual4</td>
+    <td>$flujoAnual5</td>
+    <td>$tirCalculada%</td>
+    <td>$aprobado</td>
+</tr>";
+}
 
-            // Calcular y mostrar flujo neto del año para cada año del plazo de inversión
-            for ($ano = 1; $ano <= $plazoInversion; $ano++) {
-                $flujoNetoAno = calcularDistribucionTriangular($mediaF, $desviacionEF);
-                echo "<td>$flujoNetoAno</td>";
-            }
-
-            echo "</tr>";
-        }
-    
         echo "</table>";
         echo "</div>";
         echo "<button onclick=\"generarPDF()\" style=\"background-color: #a52019; color: white; border: none; padding: 8px; cursor: pointer;\"><i class=\"fas fa-file-pdf\"></i> Generar PDF</button>";
@@ -146,15 +161,57 @@ $conn->close();
     function calcularDistribucionTriangular($media, $min, $max) {
         $u = mt_rand() / mt_getrandmax();
         $c = ($media - $min) / ($max - $min);
-    
         if ($u <= $c) {
             return $min + sqrt($u * ($max - $min) * ($media - $min));
         } else {
             return $max - sqrt((1 - $u) * ($max - $min) * ($max - $media));
         }
     }
+    function calcularTIR() {
+        $escenariosAprobados = 0;
+        $escenariosNoAprobados = 0;
+        $filas = $_POST['filas']; // Recibir datos del formulario (asegúrate de enviar 'filas' desde tu formulario)
+        $tirArray = []; // Initialize tirArray
+    
+        for ($i = 1; $i < count($filas); $i++) {
+            $flujos = [
+                floatval($filas[$i][1]),
+                floatval($filas[$i][2]),
+                floatval($filas[$i][3]),
+                floatval($filas[$i][4]),
+                floatval($filas[$i][5]),
+            ];
+    
+            $tirCalculada = calcularTIRconFET($flujos);
+            $filas[$i][7] = number_format($tirCalculada, 2) . "%";
+            $tirArray[] = $tirCalculada; // Add TIR value to tirArray
+    
+            $aprobado = $tirCalculada >= 30 ? "APROBADO" : "NO";
+            $filas[$i][8] = $aprobado;
+    
+            if ($aprobado === "APROBADO") {
+                $escenariosAprobados++;
+            } else {
+                $escenariosNoAprobados++;
+            }
+        }
+    }
+    function calcularTIRconFET($flujos) {
+        $inversionInicial = $flujos[0];
+        $flujosNetos = array_slice($flujos, 1);
+        $factorRecuperacion = 0;
+        $acumulado = 0;
+    
+        for ($i = 0; $i < count($flujosNetos); $i++) {
+            $acumulado += $flujosNetos[$i];
+            $factorRecuperacion += $acumulado / pow(1 + $i, 2);
+        }
+    
+        return (($inversionInicial / $factorRecuperacion - 1) * 100)/3;
+    }
     ?>
    <script>
+   
     function generarPDF() {
         const element = document.getElementById("contenido-pdf");
 

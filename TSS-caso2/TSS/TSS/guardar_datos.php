@@ -24,10 +24,12 @@ $mediaI = $_POST['mediaI'];
 $desviacionEI = $_POST['desviacionEI'];
 $mediaF = $_POST['mediaF'];
 $desviacionEF = $_POST['desviacionEF'];
+$numEscenarios = $_POST['numEscenarios'];
+
 
 // Preparar la consulta SQL para la inserción
-$sql = "INSERT INTO formulario (nombreEmpresa,nombreCompleto, correoElectronico, edad, experienciaInversion, toleranciaRiesgo, conocimientosFinancieros, objetivosCortoPlazo, objetivosLargoPlazo,activosInteresados, plazoInversion, ingresosMensuales, gastosMensuales, deudasExistentes, conoceNegocio, investigadoIndustria, comentariosAdicionales, mediaI, desviacionEI, mediaF, desviacionEF) 
-        VALUES ('$nombreEmpresa','$nombreCompleto', '$correoElectronico', '$edad', '$experienciaInversion', '$toleranciaRiesgo', '$conocimientosFinancieros', '$objetivosCortoPlazo', '$objetivosLargoPlazo','$activosInteresados', '$plazoInversion', '$ingresosMensuales', '$gastosMensuales', '$deudasExistentes', '$conoceNegocio', '$investigadoIndustria', '$comentariosAdicionales', '$mediaI', '$desviacionEI', '$mediaF', '$desviacionEF')";
+$sql = "INSERT INTO formulario (nombreEmpresa,nombreCompleto, correoElectronico, edad, experienciaInversion, toleranciaRiesgo, conocimientosFinancieros, objetivosCortoPlazo, objetivosLargoPlazo,activosInteresados, plazoInversion, ingresosMensuales, gastosMensuales, deudasExistentes, conoceNegocio, investigadoIndustria, comentariosAdicionales, mediaI, desviacionEI, mediaF, desviacionEF,numEscenarios) 
+        VALUES ('$nombreEmpresa','$nombreCompleto', '$correoElectronico', '$edad', '$experienciaInversion', '$toleranciaRiesgo', '$conocimientosFinancieros', '$objetivosCortoPlazo', '$objetivosLargoPlazo','$activosInteresados', '$plazoInversion', '$ingresosMensuales', '$gastosMensuales', '$deudasExistentes', '$conoceNegocio', '$investigadoIndustria', '$comentariosAdicionales', '$mediaI', '$desviacionEI', '$mediaF', '$desviacionEF', '$numEscenarios')";
 
 // Ejecutar la consulta
 if ($conn->query($sql) === TRUE) {
