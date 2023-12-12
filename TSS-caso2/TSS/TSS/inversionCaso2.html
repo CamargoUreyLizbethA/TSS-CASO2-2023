@@ -9,6 +9,8 @@
     <script type="text/javascript" async
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         body {
             background-blend-mode: multiply;
@@ -106,6 +108,14 @@
             color:#002a4c;
             
         }
+        #graficoTIR {
+        width: 80%;
+        max-width: 400px; /* Ajusta el ancho máximo según tus necesidades */
+        margin: 20px auto;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+}
+
     </style>
     <title>Simulación de Decisiones sobre Inversiones</title>
 </head>
@@ -287,7 +297,8 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
     let escenariosAprobados = 0;
     let escenariosNoAprobados = 0;
     let filas = document.getElementById("tablaSimulacion").rows;
-    
+    tirArray = []; // Initialize tirArray
+
     for (let i = 1; i < filas.length; i++) {
         let flujos = [
             parseFloat(filas[i].cells[1].innerHTML),
@@ -296,32 +307,34 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
             parseFloat(filas[i].cells[4].innerHTML),
             parseFloat(filas[i].cells[5].innerHTML),
         ];
+
         let tirCalculada = calcularTIRconFET(flujos);
-        
-        // Mostrar TIR en formato de porcentaje (%)
         filas[i].cells[7].innerHTML = tirCalculada.toFixed(2) + "%";
+        tirArray.push(tirCalculada); // Add TIR value to tirArray
 
         let aprobado = tirCalculada >= 30 ? "APROBADO" : "NO";
         filas[i].cells[8].innerHTML = aprobado;
-        
-        // Contar escenarios aprobados y no aprobados
+
         if (aprobado === "APROBADO") {
             escenariosAprobados++;
         } else {
             escenariosNoAprobados++;
         }
+
         let conclusionGeneral = document.getElementById("conclusion-general");
 
-if (escenariosAprobados > escenariosNoAprobados) {
-    conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. En términos generales, la viabilidad de la inversión se vislumbra positiva y prometedora.`;
-} else if (escenariosAprobados < escenariosNoAprobados) {
-    conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. En términos generales, no se percibe como una opción viable para invertir.`;
-} else {
-    conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. No se puede tomar una decisión clara sobre la viabilidad de la inversión debido a la igualdad en el número de escenarios aprobados y no aprobados.`;
+        if (escenariosAprobados > escenariosNoAprobados) {
+            conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. En términos generales, la viabilidad de la inversión se vislumbra positiva y prometedora.`;
+        } else if (escenariosAprobados < escenariosNoAprobados) {
+            conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. En términos generales, no se percibe como una opción viable para invertir.`;
+        } else {
+            conclusionGeneral.innerHTML = `En conclusión, de los ${escenariosAprobados + escenariosNoAprobados} escenarios evaluados, ${escenariosAprobados} son aprobados y ${escenariosNoAprobados} son no aprobados. No se puede tomar una decisión clara sobre la viabilidad de la inversión debido a la igualdad en el número de escenarios aprobados y no aprobados.`;
+        }
+    }
+
+    generarGrafico(); // Call generarGrafico after tirArray is populated
 }
 
-    }
-}
     function calcularTIRconFET(flujos) {
         let inversionInicial = flujos[0];
         let flujosNetos = flujos.slice(1);
@@ -419,6 +432,38 @@ function obtenerDatosTabla() {
     }
 
     return data;
+}
+function generarGrafico() {
+    // Crear un canvas con el tamaño deseado en píxeles
+    const canvas = document.createElement("canvas");
+    canvas.id = "graficoTIR";
+    canvas.width = 354; // Aproximadamente 5 cm en píxeles (1 cm = 28.35 píxeles)
+    canvas.height = 354; // Aproximadamente 5 cm en píxeles (1 cm = 28.35 píxeles)
+    document.body.appendChild(canvas);
+
+    // Crear el gráfico en el canvas
+    new Chart(canvas, {
+        type: 'bar',
+        data: {
+            labels: Array.from({ length: tirArray.length }, (_, i) => `Escenario ${i + 1}`),
+            datasets: [{
+                label: 'TIR',
+                backgroundColor: '#1f8dd6',
+                borderColor: '#002a4c',
+                data: tirArray,
+            }]
+        },
+        options: {
+            responsive: false, // Desactivar la respuesta automática al tamaño de la ventana
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100, // Ajusta el rango del eje y según tus necesidades
+                }
+            }
+        }
+    });
 }
 
 </script>

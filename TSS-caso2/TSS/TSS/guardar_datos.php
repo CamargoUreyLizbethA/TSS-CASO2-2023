@@ -11,7 +11,6 @@ $toleranciaRiesgo = $_POST['toleranciaRiesgo'];
 $conocimientosFinancieros = $_POST['conocimientosFinancieros'];
 $objetivosCortoPlazo = $_POST['objetivosCortoPlazo'];
 $objetivosLargoPlazo = $_POST['objetivosLargoPlazo'];
-$EscenarioSimular = $_POST['EscenarioSimular'];
 $activosInteresados = implode(", ", $_POST['activosInteresados']);
 $plazoInversion = $_POST['plazoInversion'];
 $ingresosMensuales = $_POST['ingresosMensuales'];
@@ -26,8 +25,8 @@ $mediaF = $_POST['mediaF'];
 $desviacionEF = $_POST['desviacionEF'];
 
 // Preparar la consulta SQL para la inserción
-$sql = "INSERT INTO formulario (nombreCompleto, correoElectronico, edad, experienciaInversion, toleranciaRiesgo, conocimientosFinancieros, objetivosCortoPlazo, objetivosLargoPlazo, EscenarioSimular,activosInteresados, plazoInversion, ingresosMensuales, gastosMensuales, deudasExistentes, conoceNegocio, investigadoIndustria, comentariosAdicionales, mediaI, desviacionEI, mediaF, desviacionEF) 
-        VALUES ('$nombreCompleto', '$correoElectronico', '$edad', '$experienciaInversion', '$toleranciaRiesgo', '$conocimientosFinancieros', '$objetivosCortoPlazo', '$objetivosLargoPlazo', '$EscenarioSimular','$activosInteresados', '$plazoInversion', '$ingresosMensuales', '$gastosMensuales', '$deudasExistentes', '$conoceNegocio', '$investigadoIndustria', '$comentariosAdicionales', '$mediaI', '$desviacionEI', '$mediaF', '$desviacionEF')";
+$sql = "INSERT INTO formulario (nombreCompleto, correoElectronico, edad, experienciaInversion, toleranciaRiesgo, conocimientosFinancieros, objetivosCortoPlazo, objetivosLargoPlazo,activosInteresados, plazoInversion, ingresosMensuales, gastosMensuales, deudasExistentes, conoceNegocio, investigadoIndustria, comentariosAdicionales, mediaI, desviacionEI, mediaF, desviacionEF) 
+        VALUES ('$nombreCompleto', '$correoElectronico', '$edad', '$experienciaInversion', '$toleranciaRiesgo', '$conocimientosFinancieros', '$objetivosCortoPlazo', '$objetivosLargoPlazo','$activosInteresados', '$plazoInversion', '$ingresosMensuales', '$gastosMensuales', '$deudasExistentes', '$conoceNegocio', '$investigadoIndustria', '$comentariosAdicionales', '$mediaI', '$desviacionEI', '$mediaF', '$desviacionEF')";
 
 // Ejecutar la consulta
 if ($conn->query($sql) === TRUE) {

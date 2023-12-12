@@ -102,7 +102,7 @@ $conn->close();
         echo "</div>";
 
         // Segunda tabla para escenarios, inversión inicial y flujo neto
-        echo "<div class='centrar-tabla'>";
+        echo "<div class='tabla'>";
         echo "<h3>Simulación de Escenarios de Inversión</h3>";
         echo "<table>";
         echo "<tr><th>Escenario</th><th>Inversión Inicial</th><th>Flujo Neto del Año</th></tr>";
@@ -113,8 +113,8 @@ $conn->close();
         $mediaF = $row_detalle["mediaF"];
         $desviacionEF = $row_detalle["desviacionEF"];
         $plazoInversion = $row_detalle["plazoInversion"];
-        $EscenarioSimular = $row_detalle["EscenarioSimular"];
 
+        
         // Simular escenarios
         for ($escenario = 1; $escenario <= $EscenarioSimular; $escenario++) {
             // Calcular inversión inicial
