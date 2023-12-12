@@ -409,8 +409,33 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
     const ws = XLSX.utils.json_to_sheet(data); // Convertir los datos a una hoja de cálculo
     const wb = XLSX.utils.book_new(); // Crear un nuevo libro de trabajo
     XLSX.utils.book_append_sheet(wb, ws, "SimulacionDecisiones"); // Agregar la hoja de cálculo al libro
-    XLSX.writeFile(wb, 'simulacion_decisiones_inversion.xlsx'); // Descargar el archivo Excel
+
+    // Agregar el contenido HTML al libro
+    const htmlContent = `
+        <html>
+        <head>
+            <title>Simulación de Decisiones sobre Inversiones</title>
+        </head>
+        <body>
+            ${document.getElementById("contenido-pdf").outerHTML}
+        </body>
+        </html>
+    `;
+
+    const blob = new Blob([htmlContent], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    const dataUrl = URL.createObjectURL(blob);
+
+    // Crear un enlace y simular un clic para descargar el archivo
+    const a = document.createElement("a");
+    a.href = dataUrl;
+    a.download = 'simulacion_decisiones_inversion.xlsx';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(dataUrl);
 }
+
+
 
 function obtenerDatosTabla() {
     const tabla = document.getElementById("tablaSimulacion");
