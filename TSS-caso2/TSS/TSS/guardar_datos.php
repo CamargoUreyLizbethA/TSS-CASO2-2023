@@ -3,6 +3,7 @@
 include 'conexion.php';
 
 // Recuperar datos del formulario
+$nombreEmpresa = $_POST['nombreEmpresa'];
 $nombreCompleto = $_POST['nombreCompleto'];
 $correoElectronico = $_POST['correoElectronico'];
 $edad = $_POST['edad'];
@@ -25,8 +26,8 @@ $mediaF = $_POST['mediaF'];
 $desviacionEF = $_POST['desviacionEF'];
 
 // Preparar la consulta SQL para la inserción
-$sql = "INSERT INTO formulario (nombreCompleto, correoElectronico, edad, experienciaInversion, toleranciaRiesgo, conocimientosFinancieros, objetivosCortoPlazo, objetivosLargoPlazo,activosInteresados, plazoInversion, ingresosMensuales, gastosMensuales, deudasExistentes, conoceNegocio, investigadoIndustria, comentariosAdicionales, mediaI, desviacionEI, mediaF, desviacionEF) 
-        VALUES ('$nombreCompleto', '$correoElectronico', '$edad', '$experienciaInversion', '$toleranciaRiesgo', '$conocimientosFinancieros', '$objetivosCortoPlazo', '$objetivosLargoPlazo','$activosInteresados', '$plazoInversion', '$ingresosMensuales', '$gastosMensuales', '$deudasExistentes', '$conoceNegocio', '$investigadoIndustria', '$comentariosAdicionales', '$mediaI', '$desviacionEI', '$mediaF', '$desviacionEF')";
+$sql = "INSERT INTO formulario (nombreEmpresa,nombreCompleto, correoElectronico, edad, experienciaInversion, toleranciaRiesgo, conocimientosFinancieros, objetivosCortoPlazo, objetivosLargoPlazo,activosInteresados, plazoInversion, ingresosMensuales, gastosMensuales, deudasExistentes, conoceNegocio, investigadoIndustria, comentariosAdicionales, mediaI, desviacionEI, mediaF, desviacionEF) 
+        VALUES ('$nombreEmpresa','$nombreCompleto', '$correoElectronico', '$edad', '$experienciaInversion', '$toleranciaRiesgo', '$conocimientosFinancieros', '$objetivosCortoPlazo', '$objetivosLargoPlazo','$activosInteresados', '$plazoInversion', '$ingresosMensuales', '$gastosMensuales', '$deudasExistentes', '$conoceNegocio', '$investigadoIndustria', '$comentariosAdicionales', '$mediaI', '$desviacionEI', '$mediaF', '$desviacionEF')";
 
 // Ejecutar la consulta
 if ($conn->query($sql) === TRUE) {
