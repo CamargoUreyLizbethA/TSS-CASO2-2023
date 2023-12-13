@@ -82,8 +82,16 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
         </div>
     </div>
     <p class="parrafo-pequeno"></p>
-    <h3 class="titulo-flujo">Flujo de Caja Neto del Año 1-5 "generarDistribucionTriangular(mediaFlujo, mediaFlujo - desviacionFlujo, mediaFlujo + desviacionFlujo)"</h3>
+    <h3 class="titulo-flujo">Flujo de Caja Neto del Año 1-5</h3>
     <p class="parrafo-pequeno">La lógica detrás de esto es simular la variabilidad en los flujos anuales de ingresos netos después de impuestos para un escenario específico de inversión. La función generarDistribucionTriangular se basa en una distribución triangular, lo que significa que el valor medio (mediaFlujo) tiene una probabilidad más alta de ser seleccionado, y los valores se distribuyen de manera triangular hacia los extremos del rango definido por "mediaFlujo - desviacionFlujo" y "mediaFlujo + desviacionFlujo".</p>
+    <div class="formula-container">
+        <div class="math">
+        FlujoCajaNeto=generarDistribucionTriangular(mediaFlujo, mediaFlujo - desviacionFlujo, mediaFlujo + desviacionFlujo)
+       <div></div>
+        FlujoDeCajaNeto=generarDistribucionTriangular(30000,27000,33000)
+
+        </div>
+    </div>
     <img src="imagenes/fluo1-5.png">
     <h3 class="titulo-flujo">TIR</h3>
     <p class="parrafo-pequeno">1.-Generación de Flujos de Efectivo: Se obtienen los flujos de efectivo netos de cada escenario de inversión. Estos flujos representan las ganancias o pérdidas asociadas al proyecto en cada periodo.</p>
@@ -102,12 +110,12 @@ inversionInicial=generarDistribucionTriangular(100000,(95000),(105000))
 <table id="tablaSimulacion">
     <tr>
         <th>Escenario</th>
-        <th>Inversión Inicial</th>
-        <th>Flujo de Caja Neto del Año 1</th>
-        <th>Flujo de Caja Neto del Año 2</th>
-        <th>Flujo de Caja Neto del Año 3</th>
-        <th>Flujo de Caja Neto del Año 4</th>
-        <th>Flujo de Caja Neto del Año 5</th>
+        <th>Inversión Inicial Bs</th>
+        <th>Flujo de Caja Neto del Año 1 (Bs)</th>
+        <th>Flujo de Caja Neto del Año 2 (Bs)</th>
+        <th>Flujo de Caja Neto del Año 3 (Bs)</th>
+        <th>Flujo de Caja Neto del Año 4 (Bs)</th>
+        <th>Flujo de Caja Neto del Año 5 (Bs)</th>
         <th>TIR</th>
         <th>Conclusion</th>
     </tr>

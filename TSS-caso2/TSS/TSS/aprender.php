@@ -126,7 +126,6 @@
 </header>
 </head>
 <body>
-
            <main class="main">
             <div class="container">
     <h2>Distribución Triangular</h2>
@@ -157,17 +156,6 @@
     Esta distribución es útil cuando se tiene información limitada sobre un parámetro y se puede hacer una estimación razonable de los valores mínimo, máximo y más probable. Es comúnmente utilizada en análisis de riesgos y simulaciones Monte Carlo para modelar la variabilidad en un conjunto de datos cuando no se dispone de una distribución precisa. La distribución triangular es fácil de entender y aplicar, lo que la hace práctica en diversas situaciones.
     </p>
     <p>...</p>
-    <h2>Tasa Interna de Retorno (TIR)</h2>
-    <p>La Tasa Interna de Retorno es la tasa de descuento que hace que el valor presente neto (VPN) de los flujos de efectivo de un proyecto sea igual a cero.</p>
-    
-    <h2>Inversión Inicial Media y Desviación Estándar</h2>
-    <p>La inversión inicial media es el valor promedio esperado de la inversión inicial, mientras que la desviación estándar mide la dispersión de estos valores con respecto a la media.</p>
-
-    <h2>Flujo Neto del Periodo t Media y Desviación Estándar</h2>
-    <p>El flujo neto del periodo t es la diferencia entre los ingresos y los egresos en un determinado periodo t. La media y la desviación estándar representan los valores promedio y la variabilidad de estos flujos netos.</p>
-    
-    <h2>¿Que moneda estamos manejando?</h2>
-    <p>La moneda de Bolivia es el boliviano, cuyo código de abreviatura es "BOB" y su símbolo es "Bs" o "Bs.". El boliviano es la unidad monetaria oficial de Bolivia y se utiliza en todas las transacciones económicas del país. Su emisión y regulación están a cargo del Banco Central de Bolivia (BCB).</p>
     <h2>¿Como estamos adaptando la formula de la distribucion para nuestro caso de estudio?</h2>
     <ul>
                         <li><strong>Para hallar la Inversion Inicial</strong> 
@@ -199,6 +187,18 @@
 \]
 </div>
 </div>
+    <h2>Tasa Interna de Retorno (TIR)</h2>
+    <p>La Tasa Interna de Retorno es la tasa de descuento que hace que el valor presente neto (VPN) de los flujos de efectivo de un proyecto sea igual a cero.</p>
+    
+    <h2>Inversión Inicial Media y Desviación Estándar</h2>
+    <p>La inversión inicial media es el valor promedio esperado de la inversión inicial, mientras que la desviación estándar mide la dispersión de estos valores con respecto a la media.</p>
+
+    <h2>Flujo Neto del Periodo t Media y Desviación Estándar</h2>
+    <p>El flujo neto del periodo t es la diferencia entre los ingresos y los egresos en un determinado periodo t. La media y la desviación estándar representan los valores promedio y la variabilidad de estos flujos netos.</p>
+    
+    <h2>¿Que moneda estamos manejando?</h2>
+    <p>La moneda de Bolivia es el boliviano, cuyo código de abreviatura es "BOB" y su símbolo es "Bs" o "Bs.". El boliviano es la unidad monetaria oficial de Bolivia y se utiliza en todas las transacciones económicas del país. Su emisión y regulación están a cargo del Banco Central de Bolivia (BCB).</p>
+    
     <script>
     function goBack() {
         history.back();
