@@ -103,7 +103,7 @@
 <div class="header">
     <div class="logo">
         <!-- Agrega aquí la imagen de tu logo -->
-        <img src="imagenes/logo redondo.png" alt="Logo">
+        <img src="imagenes/logoRedondo.png" alt="Logo">
     </div>
     <ul class="nav-links">
         <li><a href="comp_inicio/AcercaDeNosotros.html">Acerca de Nosotros</a></li>

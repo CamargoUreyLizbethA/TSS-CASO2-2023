@@ -104,7 +104,7 @@
 <body>
 <header>
         <h1 style="color: #ede6e6;">PROYECTO DE TALLER DE SIMULACION DE SISTEMAS-Oficina 4</h1>
-        <img src="imagenes/logo redondo.png" style = "max-height: 100px;">
+        <img src="imagenes/logoRedondo.png" style = "max-height: 100px;">
     </header>
     <div class="head">
         

@@ -90,7 +90,7 @@ tr:not(:first-child) {
 </head>
 <body>
     <header>
-        <img src="imagenes/logo redondo.png" alt="Logo"> <!-- Reemplaza "ruta_del_logo.png" con la ruta real de tu logo -->
+        <img src="imagenes/logoRedondo.png" alt="Logo"> <!-- Reemplaza "ruta_del_logo.png" con la ruta real de tu logo -->
         <h2>Detalles del Formulario Sobre Decisiones de Inversiones</h2>
         <a href="acciones.php"><button>Atrás</button></a>
     </header>

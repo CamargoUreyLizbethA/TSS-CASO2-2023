@@ -120,7 +120,7 @@
 <body>
 
 <header>
-    <img src="imagenes/logo redondo.png" alt="Logo"> <!-- Reemplaza "ruta_del_logo.png" con la ruta real de tu logo -->
+    <img src="imagenes/logoRedondo.png" alt="Logo"> <!-- Reemplaza "ruta_del_logo.png" con la ruta real de tu logo -->
     <h2>Glosario Sobre El Caso De Estudio</h2>
     <button onclick="goBack()">Atrás</button>
 </header>

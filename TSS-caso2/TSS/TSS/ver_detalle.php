@@ -1,6 +1,5 @@
 <?php
 include 'conexion.php';
-
 // Obtener el ID del formulario desde la URL
 $formulario_id = $_GET['id'];
 // Consulta SQL para obtener los detalles del formulario específico
@@ -15,6 +14,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <title>Detalles del Formulario</title>
 
@@ -74,7 +74,7 @@ $conn->close();
 </head>
 <body>
 <header>
-    <img src="imagenes/logo redondo.png" alt="Logo"> <!-- Reemplaza "ruta_del_logo.png" con la ruta real de tu logo -->
+    <img src="imagenes/logoRedondo.png" alt="Logo"> <!-- Reemplaza "ruta_del_logo.png" con la ruta real de tu logo -->
     <h2>Detalles del Formulario Sobre Decisiones de Inversiones</h2>
 <a href="lista_formularios.php"><button>Atrás</button></a>
 </header>
@@ -207,6 +207,8 @@ $aprobado = $tirCalculada >= 30 ? "APROBADO" : "NO";
         return (($inversionInicial / $factorRecuperacion - 1) * 100)/3;
     }
     ?>
+        <canvas id="grafico" width="400" height="200"></canvas>
+
    <script>
 
     function generarPDF() {
@@ -259,6 +261,55 @@ $aprobado = $tirCalculada >= 30 ? "APROBADO" : "NO";
             styleElement.parentNode.removeChild(styleElement);
         }, 500);
     }
+    document.addEventListener('DOMContentLoaded', function () {
+        // Obtener los datos necesarios del formulario
+        var labels = [];
+        var tirData = [];
+
+        <?php
+        for ($i = 1; $i <= $numEscenarios; $i++) {
+            $inversionInicial = calcularDistribucionTriangular($mediaI, $mediaI - $desviacionEI, $mediaI + $desviacionEI);
+            $flujoAnual1 = calcularDistribucionTriangular($mediaF, $mediaF - $desviacionEF, $mediaF + $desviacionEF);
+            $tirCalculada = calcularTIRconFET([$inversionInicial, $flujoAnual1, /* ... */]);
+
+            // Redondear valores a dos decimales
+            $tirCalculada = round($tirCalculada, 2);
+
+            echo "labels.push('Escenario $i');";
+            echo "tirData.push($tirCalculada);";
+        }
+        ?>
+
+        // Crear el contexto del gráfico
+        var ctx = document.getElementById('grafico').getContext('2d');
+
+        // Crear el gráfico de barras
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'TIR',
+                        backgroundColor: 'rgba(255, 205, 86, 0.5)',
+                        borderColor: 'rgba(255, 205, 86, 1)',
+                        borderWidth: 1,
+                        data: tirData,
+                    },
+                ],
+            },
+            options: {
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                    },
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+    });
 </script>
        </div>
 
